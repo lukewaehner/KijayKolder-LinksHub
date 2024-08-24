@@ -7,20 +7,26 @@ import { Link } from "@nextui-org/link";
 import { FaSoundcloud, FaApple, FaSpotify } from "react-icons/fa";
 
 import BackgroundMusic from "@/components/BackgroundMusic";
-const tracks = ["/audio/STAY.m4a", "/audio/ALONE-IN-DA-MUD.m4a"];
+const tracks = [
+  "/audio/STAY.m4a",
+  "/audio/ALONE-IN-DA-MUD.m4a",
+  "/audio/TYRANT.m4a",
+  "/audio/XTOOSEE.m4a",
+  "/audio/BIEBER.m4a",
+];
 const links = [
   {
-    href: "https://google.com.com",
+    href: "https://soundcloud.com/kijaykolder",
     text: "Soundcloud",
     icon: <FaSoundcloud className="text-2xl" style={{ color: "#ff5500" }} />,
   },
   {
-    href: "https://google.com.com",
+    href: "https://music.apple.com/us/artist/kijaykolder/1763659673",
     text: "Apple Music",
     icon: <FaApple className="text-2xl" />,
   },
   {
-    href: "https://google.com.com",
+    href: "https://open.spotify.com/artist/0pwdYKtGd5acBMWjzC8HKP?si=Y3-KilG_RTS83OcevqPi4w&nd=1&dlsi=4d84308ed87945da",
     text: "Spotify",
     icon: <FaSpotify className="text-2xl" style={{ color: "#1db954" }} />,
   },
