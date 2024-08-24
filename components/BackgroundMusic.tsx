@@ -104,7 +104,9 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
       >
         <MdSkipNext size={24} />
       </button>
-      <audio ref={audioRef} loop={loop} />
+      <audio ref={audioRef} loop={loop}>
+        <track kind="captions" src="" label="No captions available" />
+      </audio>
     </div>
   );
 };
