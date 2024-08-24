@@ -48,7 +48,7 @@ export default function Home() {
             <Card className="px-4 rounded-lg shadow-lg border-4 border-gray-50/[0.2]">
               <CardBody>
                 <h1 className="text-2xl text-zinc-800 font-semibold">
-                  KiJayKolder
+                  KijayKolder
                 </h1>
               </CardBody>
             </Card>
