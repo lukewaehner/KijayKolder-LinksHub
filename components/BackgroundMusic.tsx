@@ -20,6 +20,8 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   const currentTrack = tracks[currentTrackIndex];
 
@@ -27,18 +29,27 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
     if (audioRef.current) {
       audioRef.current.src = currentTrack;
 
-      // Handle play and pause events to update the state
       const handlePlay = () => setIsPlaying(true);
       const handlePause = () => setIsPlaying(false);
+      const handleTimeUpdate = () =>
+        setCurrentTime(audioRef.current!.currentTime);
+      const handleLoadedMetadata = () =>
+        setDuration(audioRef.current!.duration);
 
       audioRef.current.addEventListener("play", handlePlay);
       audioRef.current.addEventListener("pause", handlePause);
+      audioRef.current.addEventListener("timeupdate", handleTimeUpdate);
+      audioRef.current.addEventListener("loadedmetadata", handleLoadedMetadata);
 
-      // Clean up event listeners on component unmount
       return () => {
         if (audioRef.current) {
           audioRef.current.removeEventListener("play", handlePlay);
           audioRef.current.removeEventListener("pause", handlePause);
+          audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+          audioRef.current.removeEventListener(
+            "loadedmetadata",
+            handleLoadedMetadata
+          );
         }
       };
     }
@@ -46,7 +57,6 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
 
   useEffect(() => {
     if (audioRef.current) {
-      // Play or pause the audio based on the isPlaying state
       if (isPlaying) {
         audioRef.current
           .play()
@@ -59,7 +69,6 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
 
   useEffect(() => {
     if (audioRef.current) {
-      // Automatically play the new track when the currentTrack changes
       audioRef.current
         .play()
         .catch((error) => console.error("Audio playback failed:", error));
@@ -80,33 +89,57 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
     }
   };
 
-  return (
-    <div className="flex items-center gap-4">
-      <button
-        onClick={rewindToStart}
-        className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
-        aria-label="Rewind"
-      >
-        <MdSkipPrevious size={24} />
-      </button>
+  const handleScrub = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (audioRef.current) {
+      const newTime = Number(event.target.value);
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
 
-      <button
-        onClick={togglePlay}
-        className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
-        aria-label={isPlaying ? "Pause Music" : "Play Music"}
-      >
-        {isPlaying ? <MdPauseCircle size={24} /> : <MdPlayCircle size={24} />}
-      </button>
-      <button
-        onClick={skipToNextTrack}
-        className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
-        aria-label="Skip to Next Track"
-      >
-        <MdSkipNext size={24} />
-      </button>
-      <audio ref={audioRef} loop={loop}>
-        <track kind="captions" src="" label="No captions available" />
-      </audio>
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-4">
+        <button
+          onClick={rewindToStart}
+          className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
+          aria-label="Rewind"
+        >
+          <MdSkipPrevious size={24} />
+        </button>
+
+        <button
+          onClick={togglePlay}
+          className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
+          aria-label={isPlaying ? "Pause Music" : "Play Music"}
+        >
+          {isPlaying ? <MdPauseCircle size={24} /> : <MdPlayCircle size={24} />}
+        </button>
+
+        <button
+          onClick={skipToNextTrack}
+          className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
+          aria-label="Skip to Next Track"
+        >
+          <MdSkipNext size={24} />
+        </button>
+
+        <audio ref={audioRef} loop={loop}>
+          <track kind="captions" src="" label="No captions available" />
+        </audio>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max={duration}
+        value={currentTime}
+        onChange={handleScrub}
+        step="0.01"
+        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+        style={{
+          accentColor: "#007bff", // For supporting browsers
+        }}
+      />
     </div>
   );
 };

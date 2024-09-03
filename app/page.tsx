@@ -8,10 +8,9 @@ import { FaSoundcloud, FaApple, FaSpotify } from "react-icons/fa";
 
 import BackgroundMusic from "@/components/BackgroundMusic";
 const tracks = [
-  "/audio/STAY.m4a",
-  "/audio/ALONE-IN-DA-MUD.m4a",
-  "/audio/TYRANT.m4a",
   "/audio/XTOOSEE.m4a",
+  "/audio/STAY.m4a",
+  "/audio/TYRANT.m4a",
   "/audio/BIEBER.m4a",
 ];
 const links = [
@@ -61,10 +60,11 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           >
             <Avatar
-              src="/images/avatar.png"
+              src="/images/KijayLogo.jpg"
               name="KiJay"
               isBordered
               className="w-32 h-32 text-large filter drop-shadow-2xl"
+              style={{ objectFit: "fill" }}
             />
           </motion.div>
 
