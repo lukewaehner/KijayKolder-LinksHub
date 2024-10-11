@@ -1,13 +1,12 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
-import Image from "next/image";
 
 import { Providers } from "./providers";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import RotatingBackground from "@/components/RotatingBackground";
+import BackgroundVideo from "@/components/BackgroundVideo";
 
 export const metadata: Metadata = {
   title: {
@@ -43,7 +42,8 @@ export default function RootLayout({
       >
         <Providers>
           <div className="relative flex flex-col min-h-screen">
-            <RotatingBackground />
+            {/* <RotatingBackground /> */}
+            <BackgroundVideo />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow relative z-10">
               {children}
             </main>

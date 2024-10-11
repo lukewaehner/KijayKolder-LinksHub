@@ -7,6 +7,7 @@ import { Link } from "@nextui-org/link";
 import { FaSoundcloud, FaApple, FaSpotify } from "react-icons/fa";
 
 import BackgroundMusic from "@/components/BackgroundMusic";
+
 const tracks = [
   "/audio/XTOOSEE.m4a",
   "/audio/STAY.m4a",
@@ -35,13 +36,13 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       {/* Main Content Container */}
-      <div className="relative p-8 py-12 backdrop-blur-[8px] rounded-xl border border-gray-300/[0.15] shadow-md w-full max-w-md z-10">
+      <div className="relative p-8 py-12 backdrop-blur-[10px] rounded-xl border border-gray-300/[0.15] shadow-md w-full max-w-md z-10">
         {/* Content */}
         <div className="flex flex-col items-center justify-center gap-6">
           {/* Animated Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <Card className="px-4 rounded-lg shadow-lg border-4 border-gray-50/[0.2]">
@@ -55,23 +56,23 @@ export default function Home() {
 
           {/* Animated Avatar */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
           >
             <Avatar
-              src="/images/KijayLogo.jpg"
-              name="KiJay"
               isBordered
               className="w-32 h-32 text-large filter drop-shadow-2xl"
+              name="KiJay"
+              src="/images/KijayLogo.jpg"
               style={{ objectFit: "fill" }}
             />
           </motion.div>
 
           {/* Animated Background Music Component */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.5, delay: 1, ease: "easeOut" }}
           >
             <BackgroundMusic tracks={tracks} />
@@ -79,18 +80,18 @@ export default function Home() {
 
           {/* Animated Links Container */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
             className="flex flex-col gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
           >
             {/* Flex column layout for links */}
             {links.map((link, index) => (
               <motion.div
                 key={index}
+                animate={{ opacity: 1, x: 0 }}
                 className="flex items-center gap-2"
                 initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
                 transition={{
                   duration: 0.6,
                   delay: 1 + index * 0.2,
