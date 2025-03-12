@@ -10,7 +10,7 @@ export default function BackgroundVideo() {
         poster="/images/video-placeholder.png"
         preload="auto"
       >
-        <source src="/videos/ecstasy-1080p.mp4" type="video/mp4" />
+        <source src="/videos/hibachi.mp4" type="video/mp4" />
       </video>
     </div>
   );

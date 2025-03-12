@@ -9,11 +9,12 @@ import { FaSoundcloud, FaApple, FaSpotify } from "react-icons/fa";
 import BackgroundMusic from "@/components/BackgroundMusic";
 
 const tracks = [
-  "/audio/XTOOSEE.m4a",
-  "/audio/STAY.m4a",
-  "/audio/TYRANT.m4a",
-  "/audio/BIEBER.m4a",
+  "/audio/WAYTOOLONG.m4a",
+  "/audio/NOPROBLEM.m4a",
+  "/audio/DOITYOURSELF.m4a",
+  "/audio/LIVE&LEARN.m4a",
 ];
+
 const links = [
   {
     href: "https://soundcloud.com/kijaykolder",
