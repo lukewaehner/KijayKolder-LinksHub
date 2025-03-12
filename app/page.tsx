@@ -19,7 +19,7 @@ const links = [
   {
     href: "https://soundcloud.com/kijaykolder",
     text: "Soundcloud",
-    icon: <FaSoundcloud className="text-2xl" style={{ color: "#ff5500" }} />,
+    icon: FaSoundcloud({ className: "text-2xl", style: { color: "#ff5500" } }),
   },
   {
     href: "https://music.apple.com/us/artist/kijaykolder/1763659673",
