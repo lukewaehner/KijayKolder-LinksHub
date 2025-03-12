@@ -24,12 +24,12 @@ const links = [
   {
     href: "https://music.apple.com/us/artist/kijaykolder/1763659673",
     text: "Apple Music",
-    icon: <FaApple className="text-2xl" />,
+    icon: FaApple({ className: "text-2xl" }),
   },
   {
     href: "https://open.spotify.com/artist/0pwdYKtGd5acBMWjzC8HKP?si=Y3-KilG_RTS83OcevqPi4w&nd=1&dlsi=4d84308ed87945da",
     text: "Spotify",
-    icon: <FaSpotify className="text-2xl" style={{ color: "#1db954" }} />,
+    icon: FaSpotify({ className: "text-2xl", style: { color: "#1db954" } }),
   },
 ];
 
