@@ -1,0 +1,66 @@
+{
+  "tracks": [
+    {
+      "id": "waytoolong",
+      "title": "WAY TOO LONG",
+      "path": "/audio/WAYTOOLONG.m4a",
+      "artwork": "/images/WAYTOOLONG-cover.jpg",
+      "year": "2024"
+    },
+    {
+      "id": "noproblem",
+      "title": "NO PROBLEM",
+      "path": "/audio/NOPROBLEM.m4a",
+      "artwork": "/images/NOPROBLEM-cover.jpg",
+      "year": "2024"
+    },
+    {
+      "id": "doityourself",
+      "title": "DO IT YOURSELF",
+      "path": "/audio/DOITYOURSELF.m4a",
+      "artwork": "/images/DOITYOURSELF-cover.jpg",
+      "year": "2024"
+    },
+    {
+      "id": "liveandlearn",
+      "title": "LIVE & LEARN",
+      "path": "/audio/LIVE&LEARN.m4a",
+      "artwork": "/images/LIVEANDLEARN-cover.jpg",
+      "year": "2024"
+    }
+  ],
+  "musicLinks": [
+    {
+      "id": "soundcloud",
+      "href": "https://soundcloud.com/kijaykolder",
+      "text": "Soundcloud",
+      "platform": "soundcloud"
+    },
+    {
+      "id": "applemusic",
+      "href": "https://music.apple.com/us/artist/kijaykolder/1763659673",
+      "text": "Apple Music",
+      "platform": "apple"
+    },
+    {
+      "id": "spotify",
+      "href": "https://open.spotify.com/artist/0pwdYKtGd5acBMWjzC8HKP",
+      "text": "Spotify",
+      "platform": "spotify"
+    }
+  ],
+  "contactLinks": [
+    {
+      "id": "instagram",
+      "href": "https://instagram.com/kijaykolder",
+      "text": "Instagram",
+      "platform": "instagram"
+    },
+    {
+      "id": "email",
+      "href": "mailto:contact@kijaykolder.com",
+      "text": "Email",
+      "platform": "email"
+    }
+  ]
+}

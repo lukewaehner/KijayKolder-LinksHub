@@ -1,0 +1,246 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Here's a comprehensive design spec for the dark glitch animation:
+Dark Glitch Animation Design Specification
+Core Aesthetic Principles
+DO:
+
+Create an atmosphere of digital decay and corruption
+Use video artifacts (VHS tracking errors, compression artifacts, signal loss)
+Embrace imperfection as intentional design choice
+Build tension through restraint and sudden disruptions
+Reference analog horror and found footage aesthetics
+
+DON'T:
+
+Use bright, saturated colors (no neons, no rainbows)
+Create smooth, polished transitions
+Add elements just for visual appeal
+Make it feel "fun" or "energetic"
+Use modern, clean UI patterns
+
+Color Guidelines
+APPROVED PALETTE:
+Primary:
+- Pure Black: #000000
+- Void Black: #0A0A0A
+- Static Gray: #1A1A1A, #2A2A2A
+- Corrupt White: #F0F0F0 (used sparingly)
+
+Accent (minimal use):
+- Blood Red: #8B0000 (only for critical moments)
+- Dead Blue: #191970 (for cold undertones)
+- Signal Green: #00FF00 (only for terminal/code elements)
+COLOR RULES:
+
+90% of the design should be grayscale
+Color appears only through glitch artifacts
+No gradients except for lighting effects
+High contrast between black and white only
+
+Typography
+DO:
+
+Use system fonts (Courier, Arial, Terminal)
+Apply chromatic aberration sparingly
+Let text break and corrupt
+Use monospace for data/code elements
+Allow kerning to shift during glitches
+
+DON'T:
+
+Use decorative or modern fonts
+Apply consistent styling
+Make text always readable
+Use smooth animations on text
+Add drop shadows or modern effects
+
+Animation Principles
+TIMING:
+
+Slow burns: 2-4 second builds
+Sudden cuts: 0.1-0.2 second disruptions
+Hold frames: Let static moments breathe
+Irregular intervals: Avoid predictable loops
+
+EASING:
+javascript// Approved easings
+'linear' // For mechanical movements
+'steps(n)' // For digital stutters
+[0.43, 0.13, 0.23, 0.96] // For unsettling acceleration
+'none' // Instant cuts
+DON'T USE:
+
+Bounce effects
+Smooth ease-in-out
+Spring animations
+Playful movements
+
+Glitch Effects Hierarchy
+PRIMARY EFFECTS (Use frequently):
+
+Horizontal displacement - Video tracking errors
+Frame drops - Missing data, black frames
+Compression artifacts - Blocky pixelation
+Static noise - Analog interference
+
+SECONDARY EFFECTS (Use sparingly):
+
+Chromatic aberration - RGB channel separation
+Datamoshing - Frame blending corruption
+Scan lines - CRT monitor artifacts
+Signal tearing - Horizontal tears
+
+FORBIDDEN EFFECTS:
+
+Lens flares
+Particle explosions
+Smooth gradients
+Glow effects
+Motion blur
+
+Sound Design Requirements
+MANDATORY CHARACTERISTICS:
+
+Low frequency (20-200Hz) dominant
+Distorted/bit-crushed processing
+Sudden silence more important than constant noise
+No musical elements, only texture
+
+SOUND PALETTE:
+
+Deep bass rumbles
+Static/white noise bursts
+Digital corruption clicks
+Tape hiss
+Electromagnetic interference
+
+Layout & Composition
+SPATIAL RULES:
+
+Center-weighted compositions
+Negative space is threatening, not peaceful
+Elements should feel trapped or confined
+Avoid symmetry except when it's unsettling
+
+DEPTH:
+
+Flat layers that suddenly shift
+No smooth parallax
+Z-index fighting creates unease
+Shadows should be harsh or non-existent
+
+Interaction Design
+USER FEEDBACK:
+
+Delayed responses (100-300ms)
+Unpredictable hover states
+Click events may "fail" occasionally
+Cursor becomes part of the distortion
+
+FORBIDDEN INTERACTIONS:
+
+Smooth hovers
+Helpful tooltips
+Predictable animations
+Satisfying feedback
+
+Technical Constraints
+PERFORMANCE TARGETS:
+
+Allow frame drops (intentionally)
+Stuttering can enhance aesthetic
+Keep base framerate above 24fps
+Heavy effects should last <500ms
+
+RENDERING PRIORITIES:
+
+Sharp, aliased edges (no antialiasing)
+Integer scaling only
+Nearest neighbor filtering
+Low quality compression visible
+
+Specific Animation Phases
+PHASE 1: SIGNAL ACQUISITION (0-800ms)
+
+Start with 2-3 seconds of pure black
+Subtle static builds from 0% to 30%
+NO logo visibility yet
+Sound: Low rumble fade in
+
+PHASE 2: INITIAL CORRUPTION (800-1600ms)
+
+Logo appears through static
+Heavy horizontal displacement
+Brightness at 20-40% only
+Sound: First bass hit
+
+PHASE 3: SYSTEM FAILURE (1600-2400ms)
+
+Maximum distortion
+Brief white flash (<50ms)
+Logo breaks into segments
+Sound: Digital screeching
+
+PHASE 4: FALSE STABILITY (2400-3200ms)
+
+Apparent calmness
+Micro-glitches every 200-400ms
+Never fully stable
+Sound: Breathing static
+
+Quality Checklist
+MUST HAVE:
+
+ Feels genuinely corrupted, not stylized
+ Creates unease/tension
+ Unpredictable timing
+ Monochromatic base
+ Harsh transitions
+
+MUST NOT HAVE:
+
+ Smooth gradients
+ Decorative elements
+ Consistent rhythm
+ Visual comfort
+ Modern polish
+
+Reference Aesthetics
+STUDY:
+
+Analog horror videos
+VHS generation loss
+Broadcast signal intrusions
+Security camera footage
+Corrupted digital files
+
+AVOID:
+
+Synthwave/retrowave
+Cyberpunk neon
+Modern glitch art
+Instagram filters
+Gaming aesthetics
+
+Accessibility Notes
+CRITICAL:
+
+Provide motion-reduced version
+No flashing above 3Hz
+Include skip option
+Test for photosensitivity
+
+REDUCED MOTION VERSION:
+
+Simple fade in
+No flashing
+Static distortion only
+1 second total duration
+
+Final Notes
+The goal is to create genuine discomfort through restraint. Every effect should feel like a malfunction, not a feature. The viewer should question if something is actually wrong with their display.
+Remember: This isn't "glitch as aesthetic" - this is "glitch as system failure."

@@ -1,0 +1,633 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Here's the updated implementation with a darker, glitch rap aesthetic:
+markdown---
+title: Dark Glitch Entrance Animation Implementation
+description: Next.js implementation of dark glitch rap aesthetic entrance
+date: 2024-01-01
+---
+
+# Dark Glitch Entrance Animation for Next.js
+
+## Installation
+
+```bash
+npm install framer-motion @react-three/fiber @react-three/drei @react-three/postprocessing gsap react-use howler
+File Structure
+app/
+├── components/
+│   └── entrance/
+│       ├── EntranceAnimation.jsx
+│       ├── CorruptedStatic.jsx
+│       ├── DistortedLogo.jsx
+│       ├── VoidParticles.jsx
+│       └── VideoGlitchEffect.jsx
+├── hooks/
+│   └── useEntranceAnimation.js
+├── styles/
+│   └── dark-glitch.css
+└── page.js
+Implementation Files
+app/components/entrance/EntranceAnimation.jsx
+jsx'use client'
+
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import dynamic from 'next/dynamic'
+import CorruptedStatic from './CorruptedStatic'
+import DistortedLogo from './DistortedLogo'
+import { Howl } from 'howler'
+
+const VoidParticles = dynamic(() => import('./VoidParticles'), { ssr: false })
+const VideoGlitchEffect = dynamic(() => import('./VideoGlitchEffect'), { ssr: false })
+
+export default function EntranceAnimation({ onComplete }) {
+  const [phase, setPhase] = useState(0)
+  const [glitchIntensity, setGlitchIntensity] = useState(0)
+
+  useEffect(() => {
+    // Deep, distorted bass hit
+    const darkGlitch = new Howl({
+      src: ['/sounds/dark-glitch.mp3'],
+      volume: 0.4
+    })
+
+    const timeline = [
+      { delay: 0, action: () => { setPhase(1); setGlitchIntensity(0.3) } },
+      { delay: 800, action: () => { setPhase(2); darkGlitch.play() } },
+      { delay: 1600, action: () => { setPhase(3); setGlitchIntensity(0.8) } },
+      { delay: 2400, action: () => { setPhase(4); setGlitchIntensity(0.1) } },
+      { delay: 3200, action: () => onComplete?.() }
+    ]
+
+    const timers = timeline.map(({ delay, action }) => 
+      setTimeout(action, delay)
+    )
+
+    return () => timers.forEach(clearTimeout)
+  }, [onComplete])
+
+  return (
+    <div className="fixed inset-0 bg-black overflow-hidden">
+      {/* Dark grain overlay */}
+      <div className="dark-grain" />
+      
+      {/* Corrupted video static background */}
+      <CorruptedStatic intensity={glitchIntensity} />
+      
+      <AnimatePresence mode="wait">
+        {phase >= 1 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="absolute inset-0"
+          >
+            <VideoGlitchEffect phase={phase} />
+          </motion.div>
+        )}
+
+        {phase >= 2 && (
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <DistortedLogo intensity={glitchIntensity} />
+          </motion.div>
+        )}
+
+        {phase >= 3 && (
+          <VoidParticles active={phase === 3} />
+        )}
+      </AnimatePresence>
+
+      {/* Scanlines */}
+      <div className="scanlines" />
+    </div>
+  )
+}
+app/components/entrance/CorruptedStatic.jsx
+jsximport { useEffect, useRef } from 'react'
+
+export default function CorruptedStatic({ intensity = 0.5 }) {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext('2d')
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    let animationId
+
+    const drawStatic = () => {
+      const imageData = ctx.createImageData(canvas.width, canvas.height)
+      const data = imageData.data
+
+      for (let i = 0; i < data.length; i += 4) {
+        const noise = Math.random() * 255 * intensity
+        const corrupt = Math.random() < 0.001 ? 255 : 0 // Random corruption
+        
+        // Dark grays and blacks with occasional white corruption
+        data[i] = noise * 0.1 + corrupt     // R
+        data[i + 1] = noise * 0.1 + corrupt // G
+        data[i + 2] = noise * 0.1 + corrupt // B
+        data[i + 3] = 255 * (0.02 + intensity * 0.05) // Alpha
+      }
+
+      ctx.putImageData(imageData, 0, 0)
+
+      // Occasional frame tears
+      if (Math.random() < 0.02 * intensity) {
+        const tearY = Math.random() * canvas.height
+        const tearHeight = Math.random() * 100
+        ctx.fillStyle = '#000'
+        ctx.fillRect(0, tearY, canvas.width, tearHeight)
+      }
+
+      animationId = requestAnimationFrame(drawStatic)
+    }
+
+    drawStatic()
+
+    return () => cancelAnimationFrame(animationId)
+  }, [intensity])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 mix-blend-overlay"
+      style={{ opacity: 0.8 }}
+    />
+  )
+}
+app/components/entrance/DistortedLogo.jsx
+jsximport { useEffect, useRef } from 'react'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+
+export default function DistortedLogo({ intensity = 0.5 }) {
+  const containerRef = useRef(null)
+
+  useEffect(() => {
+    const element = containerRef.current
+    if (!element) return
+
+    const distortInterval = setInterval(() => {
+      // Random warping
+      const skewX = (Math.random() - 0.5) * intensity * 20
+      const skewY = (Math.random() - 0.5) * intensity * 10
+      const scaleX = 1 + (Math.random() - 0.5) * intensity * 0.2
+      
+      element.style.transform = `skewX(${skewX}deg) skewY(${skewY}deg) scaleX(${scaleX})`
+      
+      // Reset with slight delay for jarring effect
+      setTimeout(() => {
+        element.style.transform = 'skewX(0) skewY(0) scaleX(1)'
+      }, 100)
+    }, 200 + Math.random() * 300)
+
+    return () => clearInterval(distortInterval)
+  }, [intensity])
+
+  return (
+    <motion.div
+      ref={containerRef}
+      className="relative"
+      initial={{ filter: 'brightness(0)' }}
+      animate={{ filter: 'brightness(1)' }}
+      transition={{ duration: 1.2 }}
+    >
+      {/* Main logo with heavy filters */}
+      <div className="distorted-logo-wrapper">
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          width={400}
+          height={200}
+          className="distorted-logo"
+          priority
+        />
+        
+        {/* Glitch layers */}
+        <div className="glitch-layer glitch-red" />
+        <div className="glitch-layer glitch-blue" />
+        <div className="glitch-layer glitch-white" />
+      </div>
+
+      {/* Shadow copies for depth */}
+      <div className="logo-shadow logo-shadow-1" />
+      <div className="logo-shadow logo-shadow-2" />
+    </motion.div>
+  )
+}
+app/components/entrance/VoidParticles.jsx
+jsximport { useRef, useMemo } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { Points, PointMaterial } from '@react-three/drei'
+import * as THREE from 'three'
+
+function DarkParticles({ active }) {
+  const ref = useRef()
+  const particleCount = 500
+
+  const positions = useMemo(() => {
+    const pos = new Float32Array(particleCount * 3)
+    for (let i = 0; i < particleCount; i++) {
+      // Concentrated around center with some outliers
+      const radius = Math.pow(Math.random(), 2) * 5
+      const angle = Math.random() * Math.PI * 2
+      
+      pos[i * 3] = Math.cos(angle) * radius
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 10
+      pos[i * 3 + 2] = Math.sin(angle) * radius
+    }
+    return pos
+  }, [])
+
+  useFrame((state) => {
+    if (ref.current && active) {
+      ref.current.rotation.y = state.clock.getElapsedTime() * 0.05
+      
+      // Pulsing effect
+      const scale = 1 + Math.sin(state.clock.getElapsedTime() * 2) * 0.1
+      ref.current.scale.set(scale, scale, scale)
+      
+      // Update positions for falling effect
+      const positions = ref.current.geometry.attributes.position.array
+      for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3 + 1 // Y position
+        positions[i3] -= 0.02
+        
+        if (positions[i3] < -5) {
+          positions[i3] = 5
+        }
+      }
+      ref.current.geometry.attributes.position.needsUpdate = true
+    }
+  })
+
+  return (
+    <Points ref={ref} positions={positions} stride={3}>
+      <PointMaterial
+        transparent
+        color="#ffffff"
+        size={2}
+        sizeAttenuation={false}
+        opacity={0.3}
+        blending={THREE.AdditiveBlending}
+      />
+    </Points>
+  )
+}
+
+export default function VoidParticles({ active }) {
+  return (
+    <div className="absolute inset-0 opacity-60">
+      <Canvas 
+        camera={{ position: [0, 0, 10], fov: 75 }}
+        gl={{ antialias: false }}
+      >
+        <fog attach="fog" args={['#000000', 5, 15]} />
+        <DarkParticles active={active} />
+      </Canvas>
+    </div>
+  )
+}
+app/components/entrance/VideoGlitchEffect.jsx
+jsximport { useEffect, useRef } from 'react'
+
+export default function VideoGlitchEffect({ phase }) {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const ctx = canvas.getContext('2d')
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    let animationId
+
+    const drawGlitch = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      // Video-style horizontal distortion bands
+      for (let i = 0; i < 10; i++) {
+        if (Math.random() < 0.1) {
+          const y = Math.random() * canvas.height
+          const height = Math.random() * 50 + 10
+          const offset = (Math.random() - 0.5) * 50
+          
+          // Create distortion effect
+          ctx.save()
+          ctx.globalAlpha = 0.8
+          ctx.filter = 'blur(2px)'
+          
+          // Copy and shift a section
+          ctx.drawImage(
+            canvas,
+            0, y, canvas.width, height,
+            offset, y, canvas.width, height
+          )
+          
+          ctx.restore()
+        }
+      }
+
+      // Occasional full frame corruption
+      if (Math.random() < 0.02 && phase >= 3) {
+        ctx.fillStyle = '#fff'
+        ctx.globalAlpha = 0.1
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      }
+
+      animationId = requestAnimationFrame(drawGlitch)
+    }
+
+    drawGlitch()
+
+    return () => cancelAnimationFrame(animationId)
+  }, [phase])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 pointer-events-none mix-blend-screen"
+      style={{ opacity: 0.6 }}
+    />
+  )
+}
+app/styles/dark-glitch.css
+css/* Dark grain texture */
+.dark-grain {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 25%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+/* Scanlines */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.1) 51%
+  );
+  background-size: 100% 4px;
+  animation: scanlines 10s linear infinite;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+@keyframes scanlines {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(10px); }
+}
+
+/* Distorted logo styles */
+.distorted-logo-wrapper {
+  position: relative;
+  display: inline-block;
+  filter: contrast(1.2) brightness(0.8);
+}
+
+.distorted-logo {
+  position: relative;
+  filter: saturate(0) contrast(1.5);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.glitch-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  pointer-events: none;
+}
+
+.glitch-red {
+  filter: saturate(0) contrast(2);
+  mix-blend-mode: multiply;
+  opacity: 0.8;
+  animation: glitch-shift-red 0.3s infinite;
+}
+
+.glitch-blue {
+  filter: saturate(0) contrast(1.5);
+  mix-blend-mode: screen;
+  opacity: 0.4;
+  animation: glitch-shift-blue 0.3s infinite;
+}
+
+.glitch-white {
+  filter: brightness(2) contrast(2);
+  mix-blend-mode: overlay;
+  opacity: 0;
+  animation: glitch-flash 2s infinite;
+}
+
+@keyframes glitch-shift-red {
+  0%, 100% { transform: translate(0); clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  20% { transform: translate(-2px, 0); clip-path: polygon(0 10%, 100% 10%, 100% 30%, 0 30%); }
+  40% { transform: translate(2px, 1px); clip-path: polygon(0 50%, 100% 50%, 100% 60%, 0 60%); }
+  60% { transform: translate(-1px, -1px); clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%); }
+  80% { transform: translate(1px, 0); clip-path: polygon(0 0, 100% 0, 100% 20%, 0 20%); }
+}
+
+@keyframes glitch-shift-blue {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(1px, 1px); }
+  50% { transform: translate(-1px, -1px); }
+  75% { transform: translate(1px, -1px); }
+}
+
+@keyframes glitch-flash {
+  0%, 95% { opacity: 0; }
+  96%, 97% { opacity: 1; }
+  98%, 100% { opacity: 0; }
+}
+
+/* Logo shadows for depth */
+.logo-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  filter: blur(20px);
+  transform: translateY(10px);
+  z-index: -1;
+}
+
+.logo-shadow-1 {
+  transform: translate(-5px, 15px) scale(1.1);
+  opacity: 0.4;
+}
+
+.logo-shadow-2 {
+  transform: translate(5px, 20px) scale(1.2);
+  opacity: 0.2;
+}
+
+/* Dark theme adjustments */
+body {
+  background: #000;
+  color: #fff;
+}
+
+/* VHS-style chromatic aberration */
+.chromatic-aberration {
+  animation: chromatic 0.1s infinite;
+}
+
+@keyframes chromatic {
+  0% { text-shadow: 1px 0 0 #ff0000, -1px 0 0 #0000ff; }
+  50% { text-shadow: -1px 0 0 #ff0000, 1px 0 0 #0000ff; }
+  100% { text-shadow: 0 0 0 #ff0000, 0 0 0 #0000ff; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+app/page.js
+jsx'use client'
+
+import { useState } from 'react'
+import dynamic from 'next/dynamic'
+import useEntranceAnimation from './hooks/useEntranceAnimation'
+
+const EntranceAnimation = dynamic(
+  () => import('./components/entrance/EntranceAnimation'),
+  { ssr: false }
+)
+
+export default function Home() {
+  const { isComplete, handleComplete } = useEntranceAnimation()
+  const [showContent, setShowContent] = useState(false)
+
+  const onAnimationComplete = () => {
+    handleComplete()
+    setTimeout(() => setShowContent(true), 300)
+  }
+
+  return (
+    <main className="min-h-screen bg-black text-white">
+      {!isComplete && (
+        <EntranceAnimation onComplete={onAnimationComplete} />
+      )}
+      
+      {showContent && (
+        <div className="fade-in p-8">
+          <h1 className="text-6xl font-bold chromatic-aberration">
+            深い虚空
+          </h1>
+          <p className="text-gray-400 mt-4">Enter the void</p>
+          {/* Your main content here */}
+        </div>
+      )}
+    </main>
+  )
+}
+tailwind.config.js
+javascript/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'void-black': '#0a0a0a',
+        'corrupt-white': '#f0f0f0',
+        'glitch-red': '#ff0000',
+        'glitch-blue': '#0000ff',
+        'static-gray': '#1a1a1a',
+      },
+      animation: {
+        'distort': 'distort 0.5s ease-in-out infinite',
+        'vhs-tracking': 'vhs-tracking 0.3s ease-in-out infinite',
+      },
+      fontFamily: {
+        'mono': ['Courier New', 'monospace'],
+        'glitch': ['Arial', 'sans-serif'],
+      },
+      backgroundImage: {
+        'scan-lines': 'repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px)',
+      },
+    },
+  },
+  plugins: [],
+}
+package.json
+json{
+  "name": "dark-glitch-entrance",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.0.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "framer-motion": "^11.0.0",
+    "@react-three/fiber": "^8.15.0",
+    "@react-three/drei": "^9.88.0",
+    "@react-three/postprocessing": "^2.15.0",
+    "three": "^0.158.0",
+    "gsap": "^3.12.0",
+    "react-use": "^17.4.0",
+    "howler": "^2.2.4"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.0",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.0"
+  }

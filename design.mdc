@@ -1,0 +1,160 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+Here's a design spec for a hyperpop/digicore aesthetic UI inspired by artists like Jane Remover:
+Visual Design Language
+Core Aesthetic Principles
+
+Digital decay/corruption: Intentionally broken, glitched elements
+Nostalgic futurism: Y2K meets contemporary experimental web
+Sensory overload: Multiple layers of visual information competing for attention
+Anti-corporate: Deliberately unpolished, DIY feel
+
+Color Palette
+
+Primary colors: Hyper-saturated neons
+
+Electric pink (#FF006E)
+Cyber purple (#8338EC)
+Digital blue (#3A86FF)
+Toxic green (#06FFA5)
+
+
+Accent colors:
+
+Pure white (#FFFFFF) for harsh contrast
+Deep black (#000000) for voids
+Corrupted grays (#1A1A1A, #333333)
+
+
+Effects:
+
+Chromatic aberration on text/images
+RGB color channel separation
+Animated gradients that shift between color combinations
+
+
+
+Typography
+
+Primary font: Monospace/terminal fonts (VT323, Space Mono)
+Display font: Glitchy, corrupted fonts or heavily distorted system fonts
+Text treatments:
+
+Randomly shifting letter spacing
+Overlapping text layers with opacity
+ASCII art elements mixed with regular text
+Zalgo text effects for headers
+Mixed case (RaNdOm CaPiTaLiZaTiOn)
+
+
+
+Layout & Grid
+
+Structure: Broken grid system
+
+Elements intentionally misaligned
+Overlapping containers
+Z-index chaos (elements fighting for foreground)
+
+
+Spacing: Inconsistent padding/margins
+Responsive: Deliberately janky on certain screen sizes
+
+UI Components
+Buttons:
+
+Multiple borders (double, triple outlines)
+Hover states that completely transform the element
+Glitch animations on click
+Randomized corner radius
+Text that shifts position on hover
+
+Forms:
+
+Input fields with scanning line animations
+Placeholder text that corrupts
+Validation messages in aggressive neon
+Submit buttons that "break" temporarily when clicked
+
+Navigation:
+
+Non-traditional menu structures
+Hidden/revealed through interaction
+Links that shake or vibrate
+Cursor trails or custom cursors
+
+Animation & Interaction
+
+Micro-animations:
+
+Constant subtle movement (nothing is truly static)
+Elements that "breathe" or pulse
+Random glitch intervals
+
+
+Transitions: Harsh cuts mixed with smooth fades
+Scroll effects: Parallax with distortion
+Mouse interactions:
+
+Magnetic repulsion/attraction
+Distortion fields around cursor
+Click effects that ripple the entire page
+
+
+
+Visual Effects
+
+Background:
+
+Animated noise/grain textures
+Video game-inspired particle effects
+Corrupted video loops
+Multiple overlapping gradients
+
+
+Image treatment:
+
+Heavy compression artifacts (intentional)
+Datamoshing effects
+Dithering and posterization
+Glitch art processing
+
+
+
+Sound Design Integration
+
+UI sounds that are distorted/bit-crushed
+Ambient drone playing in background
+Click sounds that randomly pitch-shift
+Error sounds that are musical
+
+Content Presentation
+
+Text blocks:
+
+Justified in unusual ways
+Random word highlighting
+Inline emoticons/kaomoji (>_<)
+Hidden messages in source code
+
+
+Media:
+
+Low-res images scaled up
+GIFs with compression artifacts
+Videos with intentional frame drops
+
+
+
+Overall Mood
+
+Chaotic but intentional
+Nostalgic (MSN Messenger, early YouTube, MySpace)
+Aggressive and in-your-face
+Simultaneously broken and beautiful
+Feels like exploring someone's digital diary/brain
+
+This aesthetic deliberately breaks conventional UI/UX rules to create an experience that mirrors the experimental, boundary-pushing nature of the hyperpop/digicore music scene.

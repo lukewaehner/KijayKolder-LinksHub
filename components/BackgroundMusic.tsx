@@ -6,6 +6,8 @@ import {
   MdPauseCircle,
   MdSkipNext,
   MdSkipPrevious,
+  MdReplay10,
+  MdForward10,
 } from "react-icons/md";
 
 interface BackgroundMusicProps {
@@ -24,6 +26,17 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   const [duration, setDuration] = useState(0);
 
   const currentTrack = tracks[currentTrackIndex];
+
+  // Extract track name from path
+  const getTrackName = (track: string) => {
+    // Remove path and extension
+    const fileName = track.split("/").pop() || "";
+
+    return fileName
+      .replace(/\.[^/.]+$/, "")
+      .replace(/([A-Z])/g, " $1")
+      .trim();
+  };
 
   useEffect(() => {
     if (audioRef.current) {
@@ -83,63 +96,119 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
     setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
   };
 
-  const rewindToStart = () => {
+  const skipToPreviousTrack = () => {
+    setCurrentTrackIndex((prevIndex) =>
+      prevIndex === 0 ? tracks.length - 1 : prevIndex - 1
+    );
+  };
+
+  const seek = (seconds: number) => {
     if (audioRef.current) {
-      audioRef.current.currentTime = 0;
+      audioRef.current.currentTime = Math.max(
+        0,
+        audioRef.current.currentTime + seconds
+      );
     }
   };
 
   const handleScrub = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (audioRef.current) {
       const newTime = Number(event.target.value);
+
       audioRef.current.currentTime = newTime;
       setCurrentTime(newTime);
     }
   };
 
+  // Format time in MM:SS
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+  };
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
+    <div className="flex flex-col gap-3 w-full bg-gray-100/80 p-3 rounded-lg shadow-inner">
+      <div className="text-center mb-0.5">
+        <p className="font-medium text-gray-800 truncate text-sm md:text-base">
+          {getTrackName(currentTrack)}
+        </p>
+        <p className="text-[10px] md:text-xs text-gray-500">
+          Track {currentTrackIndex + 1} of {tracks.length}
+        </p>
+      </div>
+
+      <div className="flex items-center justify-center gap-2 md:gap-3">
         <button
-          onClick={rewindToStart}
-          className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
-          aria-label="Rewind"
+          aria-label="Rewind 10 seconds"
+          className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
+          onClick={() => seek(-10)}
         >
-          <MdSkipPrevious size={24} />
+          <MdReplay10 className="md:text-lg" size={16} />
         </button>
 
         <button
-          onClick={togglePlay}
-          className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
+          aria-label="Previous Track"
+          className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
+          onClick={skipToPreviousTrack}
+        >
+          <MdSkipPrevious className="md:text-lg" size={16} />
+        </button>
+
+        <button
           aria-label={isPlaying ? "Pause Music" : "Play Music"}
+          className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-2 md:p-3 focus:outline-none transition-colors"
+          onClick={togglePlay}
         >
-          {isPlaying ? <MdPauseCircle size={24} /> : <MdPlayCircle size={24} />}
+          {isPlaying ? (
+            <MdPauseCircle className="md:text-2xl" size={20} />
+          ) : (
+            <MdPlayCircle className="md:text-2xl" size={20} />
+          )}
         </button>
 
         <button
-          onClick={skipToNextTrack}
-          className="bg-white hover:bg-gray-300 text-black rounded-full p-2 focus:outline-none"
           aria-label="Skip to Next Track"
+          className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
+          onClick={skipToNextTrack}
         >
-          <MdSkipNext size={24} />
+          <MdSkipNext className="md:text-lg" size={16} />
+        </button>
+
+        <button
+          aria-label="Forward 10 seconds"
+          className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
+          onClick={() => seek(10)}
+        >
+          <MdForward10 className="md:text-lg" size={16} />
         </button>
 
         <audio ref={audioRef} loop={loop}>
-          <track kind="captions" src="" label="No captions available" />
+          <track kind="captions" label="No captions available" src="" />
         </audio>
       </div>
-      <input
-        type="range"
-        min="0"
-        max={duration}
-        value={currentTime}
-        onChange={handleScrub}
-        step="0.01"
-        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
-        style={{
-          accentColor: "#007bff", // For supporting browsers
-        }}
-      />
+
+      <div className="flex items-center gap-1 md:gap-2">
+        <span className="text-[10px] md:text-xs">
+          {formatTime(currentTime)}
+        </span>
+        <input
+          className="w-full h-1.5 md:h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          max={duration || 100}
+          min="0"
+          step="0.01"
+          style={{
+            accentColor: "#3b82f6", // Blue-500
+          }}
+          type="range"
+          value={currentTime}
+          onChange={handleScrub}
+        />
+        <span className="text-[10px] md:text-xs">
+          {duration ? formatTime(duration) : "0:00"}
+        </span>
+      </div>
     </div>
   );
 };

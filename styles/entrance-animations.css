@@ -1,0 +1,246 @@
+/* Dark Glitch Animation Keyframes - Analog Horror Aesthetic */
+
+/* Primary effect: Horizontal displacement for video tracking errors */
+@keyframes video-tracking-error {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-20px);
+  }
+  50% {
+    transform: translateX(15px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+}
+
+/* Frame drop simulation */
+@keyframes frame-drop {
+  0%,
+  90% {
+    opacity: 1;
+  }
+  91%,
+  95% {
+    opacity: 0;
+  }
+  96%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Compression artifacts - blocky pixelation */
+@keyframes compression-artifacts {
+  0%,
+  100% {
+    filter: contrast(1) brightness(1);
+  }
+  50% {
+    filter: contrast(3) brightness(0.3);
+    image-rendering: pixelated;
+  }
+}
+
+/* Static noise intensity variation */
+@keyframes static-intensity {
+  0% {
+    opacity: 0.1;
+  }
+  25% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  75% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+/* Minimal chromatic aberration - only for critical moments */
+@keyframes chromatic-minimal {
+  0%,
+  100% {
+    transform: translateX(0);
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    transform: translateX(2px);
+    filter: hue-rotate(5deg);
+  }
+}
+
+/* CRT scanlines */
+@keyframes crt-scanlines {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(4px);
+  }
+}
+
+/* Data corruption blocks */
+@keyframes data-corruption {
+  0%,
+  80% {
+    opacity: 0;
+  }
+  81%,
+  85% {
+    opacity: 1;
+  }
+  86%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Signal tear effect */
+@keyframes signal-tear {
+  0%,
+  95% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  96%,
+  98% {
+    clip-path: polygon(0 30%, 100% 25%, 100% 75%, 0 80%);
+  }
+  99%,
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Terminal text corruption */
+@keyframes text-corruption {
+  0%,
+  90% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  91%,
+  93% {
+    opacity: 0.3;
+    transform: translateX(-2px);
+  }
+  94%,
+  96% {
+    opacity: 0.8;
+    transform: translateX(2px);
+  }
+  97%,
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Utility classes for dark glitch effects */
+.video-tracking-error {
+  animation: video-tracking-error 0.3s linear infinite;
+}
+
+.frame-drop-effect {
+  animation: frame-drop 2s linear infinite;
+}
+
+.compression-artifacts {
+  animation: compression-artifacts 1s linear infinite;
+}
+
+.static-intensity-variation {
+  animation: static-intensity 4s linear infinite;
+}
+
+.chromatic-minimal {
+  animation: chromatic-minimal 0.2s linear infinite;
+}
+
+.crt-scanlines {
+  animation: crt-scanlines 8s linear infinite;
+}
+
+.data-corruption-blocks {
+  animation: data-corruption 3s linear infinite;
+}
+
+.signal-tear-effect {
+  animation: signal-tear 5s linear infinite;
+}
+
+.text-corruption {
+  animation: text-corruption 2s linear infinite;
+}
+
+/* System font stack for authentic feel */
+.system-font {
+  font-family: "Courier New", "Terminal", monospace;
+  font-weight: normal;
+  letter-spacing: 0.05em;
+}
+
+/* Digital decay effects */
+.digital-decay {
+  filter: contrast(2) brightness(0.3) saturate(0);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Harsh shadows for depth without polish */
+.harsh-shadow {
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.8);
+}
+
+/* Remove all smooth transitions - only allow instant cuts */
+.no-transition {
+  transition: none !important;
+}
+
+/* Analog horror specific effects */
+.vhs-tracking {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(255, 255, 255, 0.02) 1px,
+    rgba(255, 255, 255, 0.02) 2px
+  );
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .video-tracking-error,
+  .frame-drop-effect,
+  .compression-artifacts,
+  .static-intensity-variation,
+  .chromatic-minimal,
+  .crt-scanlines,
+  .data-corruption-blocks,
+  .signal-tear-effect,
+  .text-corruption {
+    animation: none !important;
+  }
+
+  /* Simple fade for accessibility */
+  .reduced-motion-fade {
+    animation: simple-fade 1s ease-out;
+  }
+}
+
+@keyframes simple-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

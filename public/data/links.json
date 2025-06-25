@@ -1,0 +1,41 @@
+{
+  "musicLinks": [
+    {
+      "id": "soundcloud",
+      "href": "https://soundcloud.com/kijaykolder",
+      "text": "Soundcloud",
+      "platform": "soundcloud",
+      "order": 1
+    },
+    {
+      "id": "applemusic",
+      "href": "https://music.apple.com/us/artist/kijaykolder/1763659673",
+      "text": "Apple Music",
+      "platform": "apple",
+      "order": 2
+    },
+    {
+      "id": "spotify",
+      "href": "https://open.spotify.com/artist/0pwdYKtGd5acBMWjzC8HKP",
+      "text": "Spotify",
+      "platform": "spotify",
+      "order": 3
+    }
+  ],
+  "contactLinks": [
+    {
+      "id": "instagram",
+      "href": "https://instagram.com/kijaykolder",
+      "text": "Instagram",
+      "platform": "instagram",
+      "order": 1
+    },
+    {
+      "id": "email",
+      "href": "mailto:contact@kijaykolder.com",
+      "text": "Email",
+      "platform": "email",
+      "order": 2
+    }
+  ]
+}

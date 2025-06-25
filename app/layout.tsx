@@ -3,10 +3,10 @@ import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
+import LayoutContent from "./layout-content";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
-import BackgroundVideo from "@/components/BackgroundVideo";
 
 export const metadata: Metadata = {
   title: {
@@ -24,6 +24,12 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  minimumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -36,21 +42,12 @@ export default function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased overflow-hidden",
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
         <Providers>
-          <div className="relative flex flex-col min-h-screen">
-            {/* <RotatingBackground /> */}
-            <BackgroundVideo />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow relative z-10">
-              {children}
-            </main>
-            <footer className="w-full flex items-center justify-center py-3 relative z-10">
-              {/* Footer content */}
-            </footer>
-          </div>
+          <LayoutContent>{children}</LayoutContent>
         </Providers>
       </body>
     </html>
