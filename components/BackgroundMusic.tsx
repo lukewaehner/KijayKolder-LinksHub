@@ -1,14 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import {
-  MdPlayCircle,
-  MdPauseCircle,
-  MdSkipNext,
-  MdSkipPrevious,
-  MdReplay10,
-  MdForward10,
-} from "react-icons/md";
+// Using simple text alternatives due to React Icons TypeScript compatibility issues
 
 interface BackgroundMusicProps {
   tracks: string[];
@@ -145,7 +138,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
           onClick={() => seek(-10)}
         >
-          <MdReplay10 className="md:text-lg" size={16} />
+          <span className="text-xs font-bold">-10s</span>
         </button>
 
         <button
@@ -153,7 +146,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
           onClick={skipToPreviousTrack}
         >
-          <MdSkipPrevious className="md:text-lg" size={16} />
+          <span className="text-xs font-bold">⏮</span>
         </button>
 
         <button
@@ -161,11 +154,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-2 md:p-3 focus:outline-none transition-colors"
           onClick={togglePlay}
         >
-          {isPlaying ? (
-            <MdPauseCircle className="md:text-2xl" size={20} />
-          ) : (
-            <MdPlayCircle className="md:text-2xl" size={20} />
-          )}
+          <span className="text-lg font-bold">{isPlaying ? "⏸" : "▶"}</span>
         </button>
 
         <button
@@ -173,7 +162,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
           onClick={skipToNextTrack}
         >
-          <MdSkipNext className="md:text-lg" size={16} />
+          <span className="text-xs font-bold">⏭</span>
         </button>
 
         <button
@@ -181,7 +170,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
           onClick={() => seek(10)}
         >
-          <MdForward10 className="md:text-lg" size={16} />
+          <span className="text-xs font-bold">+10s</span>
         </button>
 
         <audio ref={audioRef} loop={loop}>

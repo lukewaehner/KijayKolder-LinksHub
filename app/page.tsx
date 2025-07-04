@@ -6,7 +6,6 @@ import { AnimatePresence } from "framer-motion";
 import SwipeableLayout from "@/components/SwipeableLayout";
 import AudioPlayerSection from "@/components/AudioPlayerSection";
 import LinksSection from "@/components/LinksSection";
-import ContactSection from "@/components/ContactSection";
 import EntranceAnimation from "@/components/EntranceAnimation";
 
 export default function Home() {
@@ -32,7 +31,6 @@ export default function Home() {
           sections={[
             <AudioPlayerSection key="audio" />,
             <LinksSection key="links" />,
-            <ContactSection key="contact" />,
           ]}
         />
       )}

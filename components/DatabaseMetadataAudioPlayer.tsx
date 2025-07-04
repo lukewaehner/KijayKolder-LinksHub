@@ -2,16 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import {
-  MdPlayCircle,
-  MdPauseCircle,
-  MdSkipNext,
-  MdSkipPrevious,
-  MdReplay10,
-  MdForward10,
-  MdMusicNote,
-  MdInfo,
-} from "react-icons/md";
+// Using simple alternatives due to React Icons TypeScript compatibility issues
 import { Card, CardBody } from "@nextui-org/card";
 import { Tooltip } from "@nextui-org/tooltip";
 import { motion } from "framer-motion";
@@ -244,7 +235,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
                   )`,
                 }}
               />
-              <MdMusicNote className="text-[#F0F0F0] opacity-60" size={64} />
+              <span className="text-6xl text-[#F0F0F0] opacity-60">♪</span>
             </div>
           )}
 
@@ -281,7 +272,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               }`}
               onClick={toggleMetadataDetails}
             >
-              <MdInfo size={12} />
+              <span className="text-xs">ℹ</span>
             </button>
           </Tooltip>
         </div>
@@ -365,7 +356,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               whileTap={{ scale: 0.95 }}
               onClick={() => seek(-10)}
             >
-              <MdReplay10 size={14} />
+              <span className="text-xs">⏪</span>
             </motion.button>
 
             {/* Previous Button */}
@@ -377,7 +368,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               whileTap={{ scale: 0.95 }}
               onClick={skipToPreviousTrack}
             >
-              <MdSkipPrevious size={14} />
+              <span className="text-xs">⏮</span>
             </motion.button>
 
             {/* Play/Pause Button */}
@@ -390,9 +381,9 @@ const DatabaseMetadataAudioPlayer: React.FC<
               onClick={togglePlay}
             >
               {isPlaying ? (
-                <MdPauseCircle size={20} />
+                <span className="text-lg">⏸</span>
               ) : (
-                <MdPlayCircle size={20} />
+                <span className="text-lg">▶</span>
               )}
             </motion.button>
 
@@ -405,7 +396,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               whileTap={{ scale: 0.95 }}
               onClick={skipToNextTrack}
             >
-              <MdSkipNext size={14} />
+              <span className="text-xs">⏭</span>
             </motion.button>
 
             {/* Forward Button */}
@@ -417,7 +408,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               whileTap={{ scale: 0.95 }}
               onClick={() => seek(10)}
             >
-              <MdForward10 size={14} />
+              <span className="text-xs">⏩</span>
             </motion.button>
           </div>
 

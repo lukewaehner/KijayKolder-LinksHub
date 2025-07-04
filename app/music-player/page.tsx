@@ -85,6 +85,7 @@ export default function MusicPlayerDemo() {
           type: file.type,
         },
         is_active: true,
+        is_single: true,
         sort_order: index,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),

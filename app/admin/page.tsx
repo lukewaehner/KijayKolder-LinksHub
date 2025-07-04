@@ -482,14 +482,14 @@ export default function AdminPanel() {
         title: editFormData.title,
         artist: editFormData.artist,
         album: editFormData.album,
-        year: editFormData.year ? parseInt(editFormData.year) : null,
-        genre: editFormData.genre || null,
+        year: editFormData.year ? parseInt(editFormData.year) : undefined,
+        genre: editFormData.genre || undefined,
         track_number: editFormData.track_number
           ? parseInt(editFormData.track_number)
-          : null,
+          : undefined,
         disc_number: editFormData.disc_number
           ? parseInt(editFormData.disc_number)
-          : null,
+          : undefined,
         is_single: editFormData.is_single,
       };
 

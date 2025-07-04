@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Card, CardBody } from "@nextui-org/card";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
-import { FaEnvelope, FaPhone, FaLocationArrow } from "react-icons/fa";
+// Using simple emoji alternatives due to React Icons TypeScript compatibility issues
 
 export default function ContactSection() {
   const [name, setName] = useState("");
@@ -138,7 +138,9 @@ export default function ContactSection() {
             />
             <CardBody className="py-3 px-4 relative z-10">
               <div className="flex items-center gap-3">
-                <FaEnvelope className="text-lg text-[#F0F0F0] group-hover:text-[#8B0000] transition-colors" />
+                <span className="text-lg text-[#F0F0F0] group-hover:text-[#8B0000] transition-colors">
+                  ✉
+                </span>
                 <div className="flex-1">
                   <div className="text-xs font-mono text-[#555555] mb-1">
                     PROTOCOL: SMTP
@@ -170,7 +172,9 @@ export default function ContactSection() {
             />
             <CardBody className="py-3 px-4 relative z-10">
               <div className="flex items-center gap-3">
-                <FaPhone className="text-lg text-[#F0F0F0] group-hover:text-[#8B0000] transition-colors" />
+                <span className="text-lg text-[#F0F0F0] group-hover:text-[#8B0000] transition-colors">
+                  📞
+                </span>
                 <div className="flex-1">
                   <div className="text-xs font-mono text-[#555555] mb-1">
                     PROTOCOL: VOICE
@@ -202,7 +206,9 @@ export default function ContactSection() {
             />
             <CardBody className="py-3 px-4 relative z-10">
               <div className="flex items-center gap-3">
-                <FaLocationArrow className="text-lg text-[#F0F0F0] group-hover:text-[#8B0000] transition-colors" />
+                <span className="text-lg text-[#F0F0F0] group-hover:text-[#8B0000] transition-colors">
+                  📍
+                </span>
                 <div className="flex-1">
                   <div className="text-xs font-mono text-[#555555] mb-1">
                     LOCATION: GPS

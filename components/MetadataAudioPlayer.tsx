@@ -24,7 +24,7 @@ import {
 import { Track } from "@/lib/dataService";
 
 interface MetadataAudioPlayerProps {
-  tracks: Track[];
+  tracks: (Track | string)[];
   loop?: boolean;
   onTrackChange?: (index: number) => void;
   glitchActive?: boolean;
@@ -49,7 +49,8 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
   const [buttonGlitch, setButtonGlitch] = useState<string | null>(null);
 
   const currentTrack = tracks[currentTrackIndex];
-  const currentTrackPath = currentTrack?.path;
+  const currentTrackPath =
+    typeof currentTrack === "string" ? currentTrack : currentTrack?.path;
 
   // Player-specific glitch effects
   useEffect(() => {
@@ -98,7 +99,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
           revokeCoverArtURL(metadata.coverArt.dataURL);
         }
 
-        const meta = await extractMetadataFromURL(currentTrack);
+        const meta = await extractMetadataFromURL(currentTrackPath!);
 
         setMetadata(meta);
         console.log("Loaded metadata for track:", meta);
@@ -123,7 +124,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.src = currentTrack;
+      audioRef.current.src = currentTrackPath || "";
 
       const handlePlay = () => setIsPlaying(true);
       const handlePause = () => setIsPlaying(false);
@@ -142,8 +143,10 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
           audioRef.current.removeEventListener("play", handlePlay);
           audioRef.current.removeEventListener("pause", handlePause);
           audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
-          (audioRef.cu,
-            rrent.removeEventListener("loadedmetadata", handleLoadedMetadata));
+          audioRef.current.removeEventListener(
+            "loadedmetadata",
+            handleLoadedMetadata
+          );
         }
       };
     }
