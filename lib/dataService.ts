@@ -2,6 +2,7 @@
 
 import { trackApi, videoApi, Track as DBTrack } from "@/lib/supabase";
 import { BackgroundVideo } from "@/types";
+import { createFallbackVideo } from "@/config/fallback-video";
 
 // Define types for our data (keeping for compatibility)
 export interface Track {
@@ -166,19 +167,7 @@ export const getBackgroundVideos = async (): Promise<BackgroundVideo[]> => {
 
 // Fallback video for when database is empty
 const getFallbackVideo = (): BackgroundVideo => {
-  return {
-    id: "demo-video",
-    title: "Hibachi Background",
-    description: "Default background video",
-    file_url: "/videos/hibachi.mp4",
-    file_size: 25000000,
-    thumbnail_url: "/images/video-placeholder.png",
-    duration: 60,
-    is_active: true,
-    sort_order: 0,
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-  };
+  return createFallbackVideo();
 };
 
 // Fetch music links

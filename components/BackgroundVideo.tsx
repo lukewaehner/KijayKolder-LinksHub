@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 import { getBackgroundVideo } from "@/lib/dataService";
 import { BackgroundVideo as BackgroundVideoType } from "@/types";
+import { FALLBACK_VIDEO_CONFIG } from "@/config/fallback-video";
 
 export default function BackgroundVideo() {
   const [video, setVideo] = useState<BackgroundVideoType | null>(null);
@@ -38,7 +39,7 @@ export default function BackgroundVideo() {
           poster="/images/video-placeholder.png"
           preload="auto"
         >
-          <source src="/videos/hibachi.mp4" type="video/mp4" />
+          <source src={FALLBACK_VIDEO_CONFIG.file_url} type="video/mp4" />
         </video>
       </div>
     );
