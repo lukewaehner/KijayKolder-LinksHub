@@ -56,7 +56,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
     const playerGlitchInterval = setInterval(
       () => {
         setPlayerGlitch(true);
-        se,tTimeout(() => setPlayerGlitch(false), 300);
+        setTimeout(() => setPlayerGlitch(false), 300);
       },
       15000 + Math.random() * 25000
     ); // Random interval 15-40 seconds
@@ -142,10 +142,8 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
           audioRef.current.removeEventListener("play", handlePlay);
           audioRef.current.removeEventListener("pause", handlePause);
           audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
-          audioRef.cu,rrent.removeEventListener(
-            "loadedmetadata",
-            handleLoadedMetadata
-          );
+          (audioRef.cu,
+            rrent.removeEventListener("loadedmetadata", handleLoadedMetadata));
         }
       };
     }
@@ -188,7 +186,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
   const seek = (seconds: number) => {
     triggerButtonGlitch(seconds > 0 ? "forward" : "rewind");
     if (audioRef.current) {
-      audioRef.,current.currentTime = Math.max(
+      audioRef.current.currentTime = Math.max(
         0,
         audioRef.current.currentTime + seconds
       );
