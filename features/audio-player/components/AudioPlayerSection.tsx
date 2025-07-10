@@ -83,27 +83,7 @@ export default function AudioPlayerSection() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Dark overlay to make background video visible but darkened - more transparent on mobile */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Mobile overlay - more transparent */}
-        <div
-          className="absolute inset-0 md:hidden"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)",
-          }}
-        />
-        {/* Desktop overlay - darker */}
-        <div
-          className="hidden md:block absolute inset-0 backdrop-blur-sm"
-          style={{
-            background:
-              "radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%)",
-          }}
-        />
-      </div>
-
+    <div className="w-full min-h-screen flex items-center justify-center relative overflow-hidden px-4 py-6 md:p-0">
       {/* Subtle static background */}
       <SubtleStatic />
 
@@ -120,7 +100,7 @@ export default function AudioPlayerSection() {
       {/* Main container with dark glitch styling */}
       <div
         ref={containerRef}
-        className={`relative px-2 py-4 md:mx-auto md:p-6 bg-[#0A0A0A]/70 md:bg-[#0A0A0A]/95 border-0 md:border border-[#1A1A1A]/60 md:border-[#1A1A1A] w-full md:w-auto md:max-w-md ${isMetadataExpanded ? "my-4 md:my-6" : "my-2 md:my-6"} transition-all duration-300 backdrop-blur-sm md:backdrop-blur-md`}
+        className={`relative p-4 md:mx-auto md:p-6 bg-[#0A0A0A]/70 md:bg-[#0A0A0A]/95 border-0 md:border border-[#1A1A1A]/60 md:border-[#1A1A1A] w-full md:w-auto md:max-w-md my-0 md:my-6 transition-all duration-300 backdrop-blur-sm md:backdrop-blur-md`}
         style={{
           boxShadow:
             "0 0 30px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.03)",

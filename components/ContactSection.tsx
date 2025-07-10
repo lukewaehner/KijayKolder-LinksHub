@@ -53,15 +53,6 @@ export default function ContactSection() {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Dark overlay to make background video visible but darkened */}
-      <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%)",
-        }}
-      />
-
       {/* Subtle static background */}
       <SubtleStatic />
 

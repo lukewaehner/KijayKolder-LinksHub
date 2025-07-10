@@ -356,7 +356,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               whileTap={{ scale: 0.95 }}
               onClick={() => seek(-10)}
             >
-              <span className="text-xs">⏪</span>
+              <span className="text-xs font-bold">&lt;&lt;</span>
             </motion.button>
 
             {/* Previous Button */}
@@ -368,7 +368,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               whileTap={{ scale: 0.95 }}
               onClick={skipToPreviousTrack}
             >
-              <span className="text-xs">⏮</span>
+              <span className="text-xs font-bold">&lt;</span>
             </motion.button>
 
             {/* Play/Pause Button */}
@@ -381,9 +381,9 @@ const DatabaseMetadataAudioPlayer: React.FC<
               onClick={togglePlay}
             >
               {isPlaying ? (
-                <span className="text-lg">⏸</span>
+                <span className="text-lg font-bold">||</span>
               ) : (
-                <span className="text-lg">▶</span>
+                <span className="text-lg font-bold">&gt;</span>
               )}
             </motion.button>
 
@@ -396,7 +396,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               whileTap={{ scale: 0.95 }}
               onClick={skipToNextTrack}
             >
-              <span className="text-xs">⏭</span>
+              <span className="text-xs font-bold">&gt;</span>
             </motion.button>
 
             {/* Forward Button */}
@@ -408,7 +408,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
               whileTap={{ scale: 0.95 }}
               onClick={() => seek(10)}
             >
-              <span className="text-xs">⏩</span>
+              <span className="text-xs font-bold">&gt;&gt;</span>
             </motion.button>
           </div>
 

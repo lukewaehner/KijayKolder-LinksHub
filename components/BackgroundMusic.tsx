@@ -146,7 +146,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
           onClick={skipToPreviousTrack}
         >
-          <span className="text-xs font-bold">⏮</span>
+          <span className="text-xs font-bold">&lt;</span>
         </button>
 
         <button
@@ -154,7 +154,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-2 md:p-3 focus:outline-none transition-colors"
           onClick={togglePlay}
         >
-          <span className="text-lg font-bold">{isPlaying ? "⏸" : "▶"}</span>
+          <span className="text-lg font-bold">{isPlaying ? "||" : "&gt;"}</span>
         </button>
 
         <button
@@ -162,7 +162,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full p-1.5 md:p-2 focus:outline-none transition-colors"
           onClick={skipToNextTrack}
         >
-          <span className="text-xs font-bold">⏭</span>
+          <span className="text-xs font-bold">&gt;</span>
         </button>
 
         <button

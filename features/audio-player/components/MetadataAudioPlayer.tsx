@@ -505,7 +505,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
           <div className="flex justify-between items-center mt-2 text-xs font-mono text-[#555555]">
             <span>AUDIO_SYS: ACTIVE</span>
             <span className="text-[#8B0000]">
-              {isPlaying ? "► PLAYING" : "⏸ PAUSED"}
+              {isPlaying ? "> PLAYING" : "|| PAUSED"}
             </span>
           </div>
         </CardBody>

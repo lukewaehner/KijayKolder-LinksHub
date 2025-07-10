@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import {
   MdPlayCircle,
   MdPauseCircle,
@@ -9,18 +8,13 @@ import {
   MdSkipPrevious,
   MdReplay10,
   MdForward10,
-  MdMusicNote,
   MdInfo,
 } from "react-icons/md";
 import { Card, CardBody } from "@nextui-org/card";
 import { Tooltip } from "@nextui-org/tooltip";
 import { motion } from "framer-motion";
 
-import {
-  AudioMetadata,
-  extractMetadataFromURL,
-  revokeCoverArtURL,
-} from "@/lib/audioMetadata";
+import { AudioMetadata, extractMetadataFromURL } from "@/lib/audioMetadata";
 import { Track } from "@/lib/dataService";
 
 interface MetadataAudioPlayerProps {
@@ -95,8 +89,8 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
         setMetadataError(null);
 
         // Clean up previous cover art URL if it exists
-        if (metadata?.coverArt?.dataURL) {
-          revokeCoverArtURL(metadata.coverArt.dataURL);
+        if (metadata?.coverArt?.data) {
+          // Handle cleanup for blob-based cover art if needed
         }
 
         const meta = await extractMetadataFromURL(currentTrackPath!);
@@ -116,8 +110,8 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
 
     // Clean up function
     return () => {
-      if (metadata?.coverArt?.dataURL) {
-        revokeCoverArtURL(metadata.coverArt.dataURL);
+      if (metadata?.coverArt?.data) {
+        // Handle cleanup for blob-based cover art if needed
       }
     };
   }, [currentTrack]);
@@ -247,17 +241,12 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
             <div className="w-full h-full flex items-center justify-center bg-[#1A1A1A]">
               <div className="text-[#F0F0F0] font-mono text-xs">LOADING...</div>
             </div>
-          ) : metadata?.coverArt?.dataURL ? (
-            <Image
-              alt={getTrackName(currentTrack)}
-              className="object-cover"
-              height={250}
-              src={metadata.coverArt.dataURL}
-              style={{
-                filter: "grayscale(60%) contrast(1.2) brightness(0.8)",
-              }}
-              width={250}
-            />
+          ) : metadata?.coverArt?.data ? (
+            <div className="w-full h-full flex items-center justify-center bg-[#1A1A1A]">
+              <div className="text-[#F0F0F0] font-mono text-xs">
+                COVER ART AVAILABLE
+              </div>
+            </div>
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-[#1A1A1A] relative">
               {/* Static noise background */}
@@ -273,7 +262,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
                   )`,
                 }}
               />
-              <MdMusicNote className="text-[#F0F0F0] opacity-60" size={64} />
+              <span className="text-6xl text-[#F0F0F0] opacity-60">♪</span>
             </div>
           )}
 
@@ -508,7 +497,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
           <div className="flex justify-between items-center mt-2 text-xs font-mono text-[#555555]">
             <span>AUDIO_SYS: ACTIVE</span>
             <span className="text-[#8B0000]">
-              {isPlaying ? "► PLAYING" : "⏸ PAUSED"}
+              {isPlaying ? "> PLAYING" : "|| PAUSED"}
             </span>
           </div>
         </CardBody>

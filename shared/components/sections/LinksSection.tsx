@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { Card, CardBody } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
-import { FaSoundcloud, FaApple, FaSpotify, FaInstagram } from "react-icons/fa";
 import { useState, useEffect, useRef } from "react";
+import { FaSoundcloud, FaApple, FaSpotify, FaInstagram } from "react-icons/fa";
 
 // Include any existing links and add more
 const links = [
@@ -34,48 +34,33 @@ const links = [
   },
 ];
 
-// Helper to map platform string to icon component with dark styling
+interface LinksSectionProps {
+  links?: typeof links;
+  isActive?: boolean;
+}
+
+// Helper to map platform string to proper icons with dark styling
 const getPlatformIcon = (platform: string, isGlitching: boolean) => {
   const glitchStyle = isGlitching
     ? { filter: "hue-rotate(180deg) contrast(2)" }
     : {};
 
+  const iconProps = {
+    className: "text-xl text-[#F0F0F0]",
+    style: glitchStyle,
+  };
+
   switch (platform.toLowerCase()) {
     case "soundcloud":
-      return (
-        <FaSoundcloud
-          className="text-xl"
-          style={{ color: "#F0F0F0", ...glitchStyle }}
-        />
-      );
+      return <FaSoundcloud {...iconProps} />;
     case "apple":
-      return (
-        <FaApple
-          className="text-xl"
-          style={{ color: "#F0F0F0", ...glitchStyle }}
-        />
-      );
+      return <FaApple {...iconProps} />;
     case "spotify":
-      return (
-        <FaSpotify
-          className="text-xl"
-          style={{ color: "#F0F0F0", ...glitchStyle }}
-        />
-      );
+      return <FaSpotify {...iconProps} />;
     case "instagram":
-      return (
-        <FaInstagram
-          className="text-xl"
-          style={{ color: "#F0F0F0", ...glitchStyle }}
-        />
-      );
+      return <FaInstagram {...iconProps} />;
     default:
-      return (
-        <FaSpotify
-          className="text-xl"
-          style={{ color: "#F0F0F0", ...glitchStyle }}
-        />
-      );
+      return <FaSpotify {...iconProps} />;
   }
 };
 
@@ -98,15 +83,6 @@ export default function LinksSection() {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Dark overlay to make background video visible but darkened */}
-      <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%)",
-        }}
-      />
-
       {/* Subtle static background */}
       <SubtleStatic />
 
@@ -120,7 +96,7 @@ export default function LinksSection() {
         }}
       />
 
-      <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto relative z-10">
+      <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto px-4 py-6 md:p-0 relative z-10">
         {/* Section-wide glitch overlay */}
         {sectionGlitch && (
           <div

@@ -120,11 +120,31 @@ export default function SwipeableLayout({ sections }: SwipeableLayoutProps) {
       ref={constraintsRef}
       className="relative h-screen w-full overflow-hidden touch-none"
     >
+      {/* Global dark overlay - persists across all sections and transitions */}
+      <div className="absolute inset-0 pointer-events-none z-10">
+        {/* Mobile overlay - more transparent */}
+        <div
+          className="absolute inset-0 md:hidden"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%)",
+          }}
+        />
+        {/* Desktop overlay - darker */}
+        <div
+          className="hidden md:block absolute inset-0 backdrop-blur-sm"
+          style={{
+            background:
+              "radial-gradient(circle at center, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%)",
+          }}
+        />
+      </div>
+
       <AnimatePresence custom={direction} initial={false} mode="wait">
         <motion.div
           key={currentSection}
           animate="center"
-          className="absolute top-0 left-0 w-full h-full p-0 flex items-center justify-center"
+          className="absolute top-0 left-0 w-full h-full p-0 flex items-center justify-center z-20"
           custom={direction}
           drag="y"
           dragConstraints={constraintsRef}
