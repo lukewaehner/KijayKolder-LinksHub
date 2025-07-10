@@ -64,13 +64,21 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
     return () => clearInterval(playerGlitchInterval);
   }, []);
 
-  // Extract track name from path if metadata isn't available
-  const getTrackName = (track: string): string => {
+  // Extract track name from track object or path
+  const getTrackName = (track: Track): string => {
+    // If metadata is available, use that title first
     if (metadata?.title) {
       return metadata.title;
     }
-    // Remove path and extension
-    const fileName = track.split("/").pop() || "";
+
+    // If track has a title, use it
+    if (track?.title) {
+      return track.title;
+    }
+
+    // Otherwise extract from path
+    const path = track?.path || "";
+    const fileName = path.split("/").pop() || "";
 
     return fileName
       .replace(/\.[^/.]+$/, "")
@@ -98,7 +106,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
           revokeCoverArtURL(metadata.coverArt.dataURL);
         }
 
-        const meta = await extractMetadataFromURL(currentTrack);
+        const meta = await extractMetadataFromURL(currentTrackPath!);
 
         setMetadata(meta);
         console.log("Loaded metadata for track:", meta);
@@ -123,7 +131,7 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.src = currentTrack;
+      audioRef.current.src = currentTrackPath || "";
 
       const handlePlay = () => setIsPlaying(true);
       const handlePause = () => setIsPlaying(false);
@@ -142,8 +150,10 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
           audioRef.current.removeEventListener("play", handlePlay);
           audioRef.current.removeEventListener("pause", handlePause);
           audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
-          (audioRef.cu,
-            rrent.removeEventListener("loadedmetadata", handleLoadedMetadata));
+          audioRef.current.removeEventListener(
+            "loadedmetadata",
+            handleLoadedMetadata
+          );
         }
       };
     }

@@ -37,7 +37,7 @@ export default function BackgroundVideo() {
     loadVideo();
 
     // Subscribe to real-time changes to background_videos table
-    let subscription;
+    let subscription: ReturnType<typeof supabase.channel> | null = null;
 
     try {
       subscription = supabase

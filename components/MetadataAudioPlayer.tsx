@@ -59,13 +59,21 @@ const MetadataAudioPlayer: React.FC<MetadataAudioPlayerProps> = ({
     return () => clearInterval(playerGlitchInterval);
   }, []);
 
-  // Extract track name from path if metadata isn't available
-  const getTrackName = (track: string): string => {
+  // Extract track name from track object or path
+  const getTrackName = (track: Track | string): string => {
+    // If metadata is available, use that title first
     if (metadata?.title) {
       return metadata.title;
     }
-    // Remove path and extension
-    const fileName = track.split("/").pop() || "";
+
+    // If track is an object, use its title
+    if (typeof track === "object" && track?.title) {
+      return track.title;
+    }
+
+    // Otherwise extract from path
+    const path = typeof track === "string" ? track : track?.path || "";
+    const fileName = path.split("/").pop() || "";
 
     return fileName
       .replace(/\.[^/.]+$/, "")

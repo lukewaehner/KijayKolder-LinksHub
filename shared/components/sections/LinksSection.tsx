@@ -1,10 +1,13 @@
 "use client";
 
+import type { IconType, IconBaseProps } from "react-icons";
+import type { CSSProperties } from "react";
+
+import { FaSoundcloud, FaApple, FaSpotify, FaInstagram } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Card, CardBody } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
 import { useState, useEffect, useRef } from "react";
-import { FaSoundcloud, FaApple, FaSpotify, FaInstagram } from "react-icons/fa";
 
 // Include any existing links and add more
 const links = [
@@ -40,28 +43,40 @@ interface LinksSectionProps {
 }
 
 // Helper to map platform string to proper icons with dark styling
-const getPlatformIcon = (platform: string, isGlitching: boolean) => {
-  const glitchStyle = isGlitching
+const getPlatformIcon = (
+  platform: string,
+  isGlitching: boolean
+): JSX.Element => {
+  const glitchStyle: CSSProperties = isGlitching
     ? { filter: "hue-rotate(180deg) contrast(2)" }
     : {};
 
-  const iconProps = {
+  const iconProps: IconBaseProps = {
     className: "text-xl text-[#F0F0F0]",
     style: glitchStyle,
+    size: 20,
   };
+
+  // Initialize with a default so TS knows it's always set
+  let IconComponent: IconType = FaSpotify;
 
   switch (platform.toLowerCase()) {
     case "soundcloud":
-      return <FaSoundcloud {...iconProps} />;
+      IconComponent = FaSoundcloud;
+      break;
     case "apple":
-      return <FaApple {...iconProps} />;
+      IconComponent = FaApple;
+      break;
     case "spotify":
-      return <FaSpotify {...iconProps} />;
+      IconComponent = FaSpotify;
+      break;
     case "instagram":
-      return <FaInstagram {...iconProps} />;
-    default:
-      return <FaSpotify {...iconProps} />;
+      IconComponent = FaInstagram;
+      break;
+    // no need for default now since we initialized above
   }
+
+  return <IconComponent {...iconProps} />;
 };
 
 export default function LinksSection() {

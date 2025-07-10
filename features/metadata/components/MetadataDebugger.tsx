@@ -75,7 +75,6 @@ export default function MetadataDebugger() {
         album: undefined,
         year: undefined,
         genre: undefined,
-        comment: undefined,
         trackNumber: undefined,
         coverArt: undefined,
       });

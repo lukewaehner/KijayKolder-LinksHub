@@ -11,9 +11,11 @@ export interface AudioMetadata {
   format?: string;
   year?: number;
   genre?: string[];
+  trackNumber?: number;
   coverArt?: {
     data: Uint8Array;
     format: string;
+    dataURL?: string;
   };
 }
 
@@ -71,7 +73,7 @@ export async function extractAudioMetadata(file: File): Promise<AudioMetadata> {
  * @returns A promise that resolves to the metadata
  */
 export async function extractMetadataFromURL(
-  url: string
+  url: string,
 ): Promise<AudioMetadata> {
   console.log("Metadata extraction from URL disabled - jsmediatags removed");
 
@@ -81,7 +83,6 @@ export async function extractMetadataFromURL(
     album: undefined,
     year: undefined,
     genre: undefined,
-    comment: undefined,
     trackNumber: undefined,
     coverArt: undefined,
   };
