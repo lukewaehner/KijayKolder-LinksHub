@@ -2,7 +2,7 @@
 
 A modern music player built with Next.js, Supabase, and NextUI, featuring real-time updates, drag-and-drop file uploads, and automatic metadata extraction.
 
-## 🚀 Features
+##  Features
 
 ### Core Features
 
@@ -39,7 +39,7 @@ A modern music player built with Next.js, Supabase, and NextUI, featuring real-t
 - **Audio Processing**: music-metadata, music-metadata-browser
 - **Deployment**: Vercel (frontend), Supabase (backend)
 
-## 📦 Installation
+## Installation
 
 1. **Clone the repository**
 
@@ -180,7 +180,7 @@ images/
 - Bulk selection interface
 - Statistics dashboard
 
-## 🚀 Deployment
+##  Deployment
 
 ### Frontend (Vercel)
 
@@ -203,7 +203,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your-production-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ```
 
-## 🔒 Security
+## Security
 
 ### Row Level Security (RLS)
 
@@ -218,7 +218,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 - Secure file naming with timestamps
 - CDN delivery for performance
 
-## 📊 Performance Optimizations
+## Performance Optimizations
 
 ### Caching Strategy
 
@@ -234,7 +234,7 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 - Background video preloading
 - Efficient waveform generation
 
-## 🧪 Testing
+## Testing
 
 ### Manual Testing
 
@@ -257,52 +257,6 @@ npx tsc --noEmit
 npm run build
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-For support and questions:
-
-- Create an issue on GitHub
-- Check the [Supabase documentation](https://supabase.com/docs)
-- Review the [Next.js documentation](https://nextjs.org/docs)
-
-## 🎯 Roadmap
-
-### Phase 1: Core Features ✅
-
-- [x] Supabase integration
-- [x] File upload and storage
-- [x] Metadata extraction
-- [x] Real-time updates
-- [x] Admin panel
-
-### Phase 2: Enhanced Features 🚧
-
-- [ ] User authentication
-- [ ] Playlists and collections
-- [ ] Advanced audio controls
-- [ ] Mobile app
-- [ ] Analytics dashboard
-
-### Phase 3: Advanced Features 📋
-
-- [ ] AI-powered recommendations
-- [ ] Social features
-- [ ] Multi-language support
-- [ ] Advanced audio processing
-- [ ] Integration with music services
-
----
-
-Built with ❤️ using Next.js and Supabase
