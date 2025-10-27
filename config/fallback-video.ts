@@ -2,8 +2,8 @@ import { BackgroundVideo } from "../types";
 
 // Centralized fallback video configuration
 export const FALLBACK_VIDEO_CONFIG = {
-  file_url: "/videos/trivial-knowledge.mov",
-  title: "Trivial Knowledge Background",
+  file_url: "/videos/louder.mov",
+  title: "Louder Background",
   description: "Default background video",
   file_size: 25000000,
   thumbnail_url: "/images/video-placeholder.png",
