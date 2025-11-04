@@ -6,11 +6,16 @@ import { getBackgroundVideo } from "@/lib/dataService";
 import { BackgroundVideo as BackgroundVideoType } from "@/types";
 import { FALLBACK_VIDEO_CONFIG } from "@/config/fallback-video";
 
+/**
+ * Displays the background video, gracefully handling loading states and
+ * fallbacks when Supabase has no active media.
+ */
 export default function BackgroundVideo() {
   const [video, setVideo] = useState<BackgroundVideoType | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    /** Fetches the active video and stores it in local component state. */
     const loadVideo = async () => {
       try {
         const activeVideo = await getBackgroundVideo();

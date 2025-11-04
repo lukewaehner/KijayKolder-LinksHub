@@ -8,6 +8,10 @@ interface BackgroundMusicProps {
   loop?: boolean;
 }
 
+/**
+ * Lightweight background music player with manual transport controls and
+ * minimal styling dependencies.
+ */
 const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   tracks,
   loop = true,
@@ -20,7 +24,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
 
   const currentTrack = tracks[currentTrackIndex];
 
-  // Extract track name from path
+  /** Extracts a readable track name from a file path. */
   const getTrackName = (track: string) => {
     // Remove path and extension
     const fileName = track.split("/").pop() || "";
@@ -81,20 +85,24 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
     }
   }, [currentTrack]);
 
+  /** Toggles the audio element between play and pause. */
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
   };
 
+  /** Advances playback to the next track in the queue. */
   const skipToNextTrack = () => {
     setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
   };
 
+  /** Returns playback to the previous track in the queue. */
   const skipToPreviousTrack = () => {
     setCurrentTrackIndex((prevIndex) =>
       prevIndex === 0 ? tracks.length - 1 : prevIndex - 1
     );
   };
 
+  /** Moves the playback position forward or backward by a set number of seconds. */
   const seek = (seconds: number) => {
     if (audioRef.current) {
       audioRef.current.currentTime = Math.max(
@@ -104,6 +112,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
     }
   };
 
+  /** Handles updates from the scrubber input element. */
   const handleScrub = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (audioRef.current) {
       const newTime = Number(event.target.value);
@@ -113,7 +122,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
     }
   };
 
-  // Format time in MM:SS
+  /** Formats playback time as `MM:SS`. */
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);

@@ -1,6 +1,9 @@
 import { BackgroundVideo } from "../types";
 
-// Centralized fallback video configuration
+/**
+ * Centralized metadata describing the default background video shipped with the
+ * application.
+ */
 export const FALLBACK_VIDEO_CONFIG = {
   file_url: "/videos/louder.mov",
   title: "Louder Background",
@@ -10,7 +13,11 @@ export const FALLBACK_VIDEO_CONFIG = {
   duration: 60,
 } as const;
 
-// Function to create a complete fallback video object
+/**
+ * Builds a complete {@link BackgroundVideo} object using the fallback
+ * configuration. This is primarily used when Supabase has no user-provided
+ * entries.
+ */
 export const createFallbackVideo = (): BackgroundVideo => {
   return {
     id: "demo-video",

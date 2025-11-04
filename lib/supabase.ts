@@ -3,9 +3,14 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
+/**
+ * Shared Supabase client used across both server and client modules.
+ */
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// Types for our database tables
+/**
+ * Canonical track representation as stored in Supabase.
+ */
 export interface Track {
   id: string;
   title: string;
@@ -28,6 +33,9 @@ export interface Track {
   updated_at: string;
 }
 
+/**
+ * Canonical background video representation as stored in Supabase.
+ */
 export interface BackgroundVideo {
   id: string;
   title: string;
@@ -42,9 +50,11 @@ export interface BackgroundVideo {
   updated_at: string;
 }
 
-// API functions for tracks
+/**
+ * Data access helpers for the `tracks` table.
+ */
 export const trackApi = {
-  // Get all active tracks
+  /** Fetches all active tracks ordered by their sort position. */
   async getAll(): Promise<Track[]> {
     const { data, error } = await supabase
       .from("tracks")
@@ -57,7 +67,7 @@ export const trackApi = {
     return data || [];
   },
 
-  // Get all tracks (for admin use)
+  /** Fetches all tracks regardless of activation state. */
   async getAllForAdmin(): Promise<Track[]> {
     const { data, error } = await supabase
       .from("tracks")
@@ -69,7 +79,7 @@ export const trackApi = {
     return data || [];
   },
 
-  // Get track by ID
+  /** Loads a single track by its identifier. */
   async getById(id: string): Promise<Track | null> {
     const { data, error } = await supabase
       .from("tracks")
@@ -82,7 +92,7 @@ export const trackApi = {
     return data;
   },
 
-  // Create new track
+  /** Inserts a new track row and returns the stored record. */
   async create(
     track: Omit<Track, "id" | "created_at" | "updated_at">,
   ): Promise<Track> {
@@ -97,7 +107,7 @@ export const trackApi = {
     return data;
   },
 
-  // Update track
+  /** Applies partial updates to an existing track. */
   async update(id: string, updates: Partial<Track>): Promise<Track> {
     const { data, error } = await supabase
       .from("tracks")
@@ -111,14 +121,14 @@ export const trackApi = {
     return data;
   },
 
-  // Delete track
+  /** Permanently removes a track from Supabase. */
   async delete(id: string): Promise<void> {
     const { error } = await supabase.from("tracks").delete().eq("id", id);
 
     if (error) throw error;
   },
 
-  // Toggle active status
+  /** Toggles a track's activation flag while leaving other fields untouched. */
   async toggleActive(id: string): Promise<Track> {
     const track = await this.getById(id);
 
@@ -128,9 +138,11 @@ export const trackApi = {
   },
 };
 
-// API functions for background videos
+/**
+ * Data access helpers for the `background_videos` table.
+ */
 export const videoApi = {
-  // Get all videos (for admin)
+  /** Fetches every background video, including inactive entries. */
   async getAll(): Promise<BackgroundVideo[]> {
     const { data, error } = await supabase
       .from("background_videos")
@@ -142,7 +154,7 @@ export const videoApi = {
     return data || [];
   },
 
-  // Get all active videos
+  /** Returns only active background videos sorted by display order. */
   async getAllActive(): Promise<BackgroundVideo[]> {
     const { data, error } = await supabase
       .from("background_videos")
@@ -155,7 +167,7 @@ export const videoApi = {
     return data || [];
   },
 
-  // Get currently active video
+  /** Retrieves the single active background video, if present. */
   async getActive(): Promise<BackgroundVideo | null> {
     const { data, error } = await supabase
       .from("background_videos")
@@ -170,7 +182,7 @@ export const videoApi = {
     return data;
   },
 
-  // Create new video
+  /** Inserts a new background video definition. */
   async create(
     video: Omit<BackgroundVideo, "id" | "created_at" | "updated_at">,
   ): Promise<BackgroundVideo> {
@@ -185,7 +197,7 @@ export const videoApi = {
     return data;
   },
 
-  // Update video
+  /** Applies partial updates to an existing background video. */
   async update(
     id: string,
     updates: Partial<BackgroundVideo>,
@@ -202,7 +214,7 @@ export const videoApi = {
     return data;
   },
 
-  // Delete video
+  /** Permanently removes a video from Supabase storage. */
   async delete(id: string): Promise<void> {
     const { error } = await supabase
       .from("background_videos")
@@ -212,7 +224,9 @@ export const videoApi = {
     if (error) throw error;
   },
 
-  // Set as active (deactivate others)
+  /**
+   * Marks a video as active while ensuring all other entries are deactivated.
+   */
   async setActive(id: string): Promise<void> {
     // First deactivate all videos
     await supabase
@@ -228,9 +242,11 @@ export const videoApi = {
   },
 };
 
-// File upload functions
+/**
+ * Storage helper utilities for uploading and removing media assets.
+ */
 export const fileApi = {
-  // Upload audio file
+  /** Uploads an audio file and returns the public URL. */
   async uploadAudio(file: File, fileName: string): Promise<string> {
     const { data, error } = await supabase.storage
       .from("audio")
@@ -245,7 +261,7 @@ export const fileApi = {
     return publicUrl;
   },
 
-  // Upload video file
+  /** Uploads a video file and returns the public URL. */
   async uploadVideo(file: File, fileName: string): Promise<string> {
     const { data, error } = await supabase.storage
       .from("videos")
@@ -260,7 +276,7 @@ export const fileApi = {
     return publicUrl;
   },
 
-  // Upload image file
+  /** Uploads an image file and returns the public URL. */
   async uploadImage(file: File, fileName: string): Promise<string> {
     const { data, error } = await supabase.storage
       .from("images")
@@ -275,7 +291,7 @@ export const fileApi = {
     return publicUrl;
   },
 
-  // Delete file
+  /** Deletes a file from the specified storage bucket. */
   async deleteFile(bucket: string, fileName: string): Promise<void> {
     const { error } = await supabase.storage.from(bucket).remove([fileName]);
 
