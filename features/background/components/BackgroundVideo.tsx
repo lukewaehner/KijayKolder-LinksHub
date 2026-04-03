@@ -11,6 +11,8 @@ export default function BackgroundVideo() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadVideo = async () => {
       try {
         setLoading(true);
@@ -18,18 +20,28 @@ export default function BackgroundVideo() {
 
         const activeVideo = await getBackgroundVideo();
 
-        setVideo(activeVideo);
+        if (!activeVideo) {
+          if (isMounted) setError("No active video found");
+          return;
+        }
+
+        if (isMounted) setVideo(activeVideo);
       } catch (error) {
         console.error("Error loading background video:", error);
-        setError(
-          error instanceof Error ? error.message : "Failed to load video"
-        );
+        if (isMounted)
+          setError(
+            error instanceof Error ? error.message : "Failed to load video"
+          );
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     loadVideo();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading || !video) {
@@ -55,7 +67,10 @@ export default function BackgroundVideo() {
         className="object-cover w-full h-full blur-sm brightness-50 md:brightness-25 pointer-events-none"
         poster={video.thumbnail_url || "/images/video-placeholder.png"}
         preload="auto"
-        onError={() => setError(`Video playback failed: ${video.title}`)}
+        onError={() => {
+          setError(`Video playback failed: ${video.title}`);
+          setVideo(null);
+        }}
       >
         <source src={video.file_url} type="video/mp4" />
         <source src={video.file_url} type="video/quicktime" />
