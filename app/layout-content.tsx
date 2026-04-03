@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-import BackgroundVideo from "@/components/BackgroundVideo";
+import BackgroundVideo from "@/features/background/components/BackgroundVideo";
 
 export default function LayoutContent({
   children,
