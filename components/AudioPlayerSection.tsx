@@ -7,6 +7,10 @@ import { Card, CardBody } from "@nextui-org/card";
 import DatabaseMetadataAudioPlayer from "@/components/DatabaseMetadataAudioPlayer";
 import { getTracks, Track } from "@/lib/dataService";
 
+/**
+ * Main audio player section that handles data fetching, glitch animations, and
+ * metadata presentation.
+ */
 export default function AudioPlayerSection() {
   const [tracks, setTracks] = useState<Track[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,6 +36,7 @@ export default function AudioPlayerSection() {
     loadTracks();
   }, []);
 
+  /** Updates the current track index and triggers the glitch effect. */
   const handleTrackChange = (index: number) => {
     setCurrentTrackIndex(index);
     // Trigger glitch on track change
@@ -39,6 +44,7 @@ export default function AudioPlayerSection() {
     setTimeout(() => setGlitchActive(false), 200);
   };
 
+  /** Tracks whether the metadata drawer is expanded. */
   const handleMetadataToggle = (expanded: boolean) => {
     setIsMetadataExpanded(expanded);
   };
@@ -282,7 +288,9 @@ export default function AudioPlayerSection() {
   );
 }
 
-// Subtle Static Component for background
+/**
+ * Renders a subtle animated static overlay using a dynamically created canvas.
+ */
 function SubtleStatic() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -310,6 +318,7 @@ function SubtleStatic() {
     let animationId: number;
     let frameCount = 0;
 
+    /** Animates low-intensity static noise onto the overlay canvas. */
     const drawStatic = () => {
       frameCount++;
 

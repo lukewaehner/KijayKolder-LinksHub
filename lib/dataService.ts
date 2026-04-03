@@ -4,7 +4,10 @@ import { trackApi, videoApi, Track as DBTrack } from "@/lib/supabase";
 import { BackgroundVideo } from "@/types";
 import { createFallbackVideo } from "@/config/fallback-video";
 
-// Define types for our data (keeping for compatibility)
+/**
+ * Describes an audio track as exposed to the frontend, combining metadata and
+ * playback-specific details.
+ */
 export interface Track {
   id: string;
   title: string;
@@ -18,6 +21,9 @@ export interface Track {
   is_single?: boolean;
 }
 
+/**
+ * Represents a user-facing link to a music or contact destination.
+ */
 export interface Link {
   id: string;
   href: string;
@@ -26,16 +32,25 @@ export interface Link {
   order: number;
 }
 
+/**
+ * Lightweight track listing loaded from static JSON assets.
+ */
 export interface SimplifiedTracksData {
   tracks: string[]; // Array of filenames
 }
 
+/**
+ * Data structure used when loading link information from JSON assets.
+ */
 export interface LinksData {
   musicLinks: Link[];
   contactLinks: Link[];
 }
 
-// Helper function to format filename as title
+/**
+ * Converts a media filename into a human-readable title by removing the
+ * extension and applying several formatting heuristics.
+ */
 const formatTitle = (filename: string): string => {
   // Remove file extension
   const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
@@ -55,7 +70,9 @@ const formatTitle = (filename: string): string => {
   return formatted;
 };
 
-// Convert database track to frontend track format
+/**
+ * Normalizes a Supabase track row to the Track shape used by the UI.
+ */
 const convertDBTrackToTrack = (dbTrack: DBTrack): Track => {
   return {
     id: dbTrack.id,
@@ -71,7 +88,10 @@ const convertDBTrackToTrack = (dbTrack: DBTrack): Track => {
   };
 };
 
-// Fetch tracks data from database
+/**
+ * Loads audio tracks from Supabase and falls back to demo content when the
+ * table is empty or unavailable.
+ */
 export const getTracks = async (): Promise<Track[]> => {
   try {
     const dbTracks = await trackApi.getAll();
@@ -97,7 +117,9 @@ export const getTracks = async (): Promise<Track[]> => {
   }
 };
 
-// Fallback tracks for when database is empty
+/**
+ * Provides a curated list of fallback tracks when Supabase has no entries.
+ */
 const getFallbackTracks = (): Track[] => {
   return [
     {
@@ -115,7 +137,10 @@ const getFallbackTracks = (): Track[] => {
   ];
 };
 
-// Get active background video from database
+/**
+ * Retrieves the currently active background video, falling back to demo media
+ * if none are configured.
+ */
 export const getBackgroundVideo = async (): Promise<BackgroundVideo | null> => {
   try {
     const activeVideo = await videoApi.getActive();
@@ -143,7 +168,10 @@ export const getBackgroundVideo = async (): Promise<BackgroundVideo | null> => {
   }
 };
 
-// Get all background videos
+/**
+ * Fetches every background video, using a fallback asset when the database is
+ * empty.
+ */
 export const getBackgroundVideos = async (): Promise<BackgroundVideo[]> => {
   try {
     const videos = await videoApi.getAll();
@@ -165,12 +193,17 @@ export const getBackgroundVideos = async (): Promise<BackgroundVideo[]> => {
   }
 };
 
-// Fallback video for when database is empty
+/**
+ * Generates a fallback background video definition sourced from configuration.
+ */
 const getFallbackVideo = (): BackgroundVideo => {
   return createFallbackVideo();
 };
 
-// Fetch music links
+/**
+ * Loads music links from the static JSON manifest sorted by their configured
+ * order.
+ */
 export const getMusicLinks = async (): Promise<Link[]> => {
   try {
     const response = await fetch("/data/links.json");
@@ -188,7 +221,10 @@ export const getMusicLinks = async (): Promise<Link[]> => {
   }
 };
 
-// Fetch contact links
+/**
+ * Loads contact links from the static JSON manifest sorted by their configured
+ * order.
+ */
 export const getContactLinks = async (): Promise<Link[]> => {
   try {
     const response = await fetch("/data/links.json");

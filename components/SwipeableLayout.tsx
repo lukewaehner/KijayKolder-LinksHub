@@ -8,12 +8,16 @@ interface SwipeableLayoutProps {
   sections: ReactNode[];
 }
 
+/**
+ * Provides a vertically swipeable container with animated transitions between
+ * discrete sections.
+ */
 export default function SwipeableLayout({ sections }: SwipeableLayoutProps) {
   const [currentSection, setCurrentSection] = useState(0);
   const [direction, setDirection] = useState(0);
   const constraintsRef = useRef(null);
 
-  // Handle swipe gestures
+  /** Handles swipe gestures and triggers section transitions. */
   const handleDragEnd = (
     event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
@@ -34,7 +38,7 @@ export default function SwipeableLayout({ sections }: SwipeableLayoutProps) {
     }
   };
 
-  // Nav dots component
+  /** Renders navigation dots that jump directly to a given section. */
   const NavDots = () => (
     <div className="fixed bottom-12 right-4 flex flex-col gap-2 z-50">
       {sections.map((_, index) => (
@@ -55,7 +59,7 @@ export default function SwipeableLayout({ sections }: SwipeableLayoutProps) {
     </div>
   );
 
-  // Swipe indicator (shown with different icons based on position)
+  /** Animated indicator that hints at swipe direction availability. */
   const SwipeIndicator = () => (
     <>
       {currentSection < sections.length - 1 && (
@@ -96,6 +100,7 @@ export default function SwipeableLayout({ sections }: SwipeableLayoutProps) {
     </>
   );
 
+  /** Motion variants used by Framer Motion to animate section transitions. */
   const variants = {
     enter: (direction: number) => {
       return {
