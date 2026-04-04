@@ -19,13 +19,7 @@ interface DatabaseMetadataAudioPlayerProps {
 
 const DatabaseMetadataAudioPlayer: React.FC<
   DatabaseMetadataAudioPlayerProps
-> = ({
-  tracks,
-  loop = true,
-  onTrackChange,
-  glitchActive = false,
-  onMetadataToggle,
-}) => {
+> = ({ tracks, onTrackChange, glitchActive = false, onMetadataToggle }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
@@ -44,7 +38,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
         setPlayerGlitch(true);
         setTimeout(() => setPlayerGlitch(false), 300);
       },
-      15000 + Math.random() * 25000
+      15000 + Math.random() * 25000,
     ); // Random interval 15-40 seconds
 
     return () => clearInterval(playerGlitchInterval);
@@ -95,7 +89,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
           audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
           audioRef.current.removeEventListener(
             "loadedmetadata",
-            handleLoadedMetadata
+            handleLoadedMetadata,
           );
         }
       };
@@ -141,7 +135,7 @@ const DatabaseMetadataAudioPlayer: React.FC<
     if (audioRef.current) {
       audioRef.current.currentTime = Math.max(
         0,
-        audioRef.current.currentTime + seconds
+        audioRef.current.currentTime + seconds,
       );
     }
   };
@@ -259,17 +253,15 @@ const DatabaseMetadataAudioPlayer: React.FC<
       <div className="text-center mb-0.5 md:mb-1 font-mono">
         <div className="flex justify-center items-center gap-2">
           <h3
-            className={`font-bold text-[#F0F0F0] truncate text-sm md:text-base uppercase tracking-wider ${
-              isGlitching ? "glitch-text" : ""
-            }`}
+            className={`font-bold text-[#F0F0F0] truncate text-sm md:text-base uppercase tracking-wider ${isGlitching ? "glitch-text" : ""
+              }`}
           >
             {getTrackName(currentTrack)}
           </h3>
           <Tooltip content="SYS_INFO">
             <button
-              className={`p-1 border border-[#2A2A2A] bg-[#1A1A1A] hover:bg-[#2A2A2A] transition-none text-[#F0F0F0] hover:text-[#8B0000] ${
-                buttonGlitch === "info" ? "glitch-button" : ""
-              }`}
+              className={`p-1 border border-[#2A2A2A] bg-[#1A1A1A] hover:bg-[#2A2A2A] transition-none text-[#F0F0F0] hover:text-[#8B0000] ${buttonGlitch === "info" ? "glitch-button" : ""
+                }`}
               onClick={toggleMetadataDetails}
             >
               <span className="text-xs">ℹ</span>
@@ -350,9 +342,8 @@ const DatabaseMetadataAudioPlayer: React.FC<
             {/* Rewind Button */}
             <motion.button
               aria-label="Rewind 10 seconds"
-              className={`bg-[#1A1A1A] hover:bg-[#2A2A2A] border border-[#333333] text-[#CCCCCC] hover:text-[#F0F0F0] font-mono text-xs px-2 py-1.5 md:px-3 md:py-2 focus:outline-none transition-none uppercase tracking-wider ${
-                buttonGlitch === "rewind" ? "glitch-button" : ""
-              }`}
+              className={`bg-[#1A1A1A] hover:bg-[#2A2A2A] border border-[#333333] text-[#CCCCCC] hover:text-[#F0F0F0] font-mono text-xs px-2 py-1.5 md:px-3 md:py-2 focus:outline-none transition-none uppercase tracking-wider ${buttonGlitch === "rewind" ? "glitch-button" : ""
+                }`}
               whileTap={{ scale: 0.95 }}
               onClick={() => seek(-10)}
             >
@@ -362,9 +353,8 @@ const DatabaseMetadataAudioPlayer: React.FC<
             {/* Previous Button */}
             <motion.button
               aria-label="Previous Track"
-              className={`bg-[#1A1A1A] hover:bg-[#2A2A2A] border border-[#333333] text-[#CCCCCC] hover:text-[#F0F0F0] font-mono text-xs px-2 py-1.5 md:px-3 md:py-2 focus:outline-none transition-none uppercase tracking-wider ${
-                buttonGlitch === "prev" ? "glitch-button" : ""
-              }`}
+              className={`bg-[#1A1A1A] hover:bg-[#2A2A2A] border border-[#333333] text-[#CCCCCC] hover:text-[#F0F0F0] font-mono text-xs px-2 py-1.5 md:px-3 md:py-2 focus:outline-none transition-none uppercase tracking-wider ${buttonGlitch === "prev" ? "glitch-button" : ""
+                }`}
               whileTap={{ scale: 0.95 }}
               onClick={skipToPreviousTrack}
             >
@@ -374,9 +364,8 @@ const DatabaseMetadataAudioPlayer: React.FC<
             {/* Play/Pause Button */}
             <motion.button
               aria-label={isPlaying ? "Pause Music" : "Play Music"}
-              className={`bg-[#2A2A2A] hover:bg-[#3A3A3A] border-2 border-[#8B0000] text-[#F0F0F0] hover:text-[#8B0000] font-mono text-xs px-3 py-2 md:px-4 md:py-3 focus:outline-none transition-none uppercase tracking-wider relative ${
-                buttonGlitch === "play" ? "glitch-button" : ""
-              } ${isPlaying ? "bg-[#8B0000] text-[#F0F0F0] border-[#F0F0F0]" : ""}`}
+              className={`bg-[#2A2A2A] hover:bg-[#3A3A3A] border-2 border-[#8B0000] text-[#F0F0F0] hover:text-[#8B0000] font-mono text-xs px-3 py-2 md:px-4 md:py-3 focus:outline-none transition-none uppercase tracking-wider relative ${buttonGlitch === "play" ? "glitch-button" : ""
+                } ${isPlaying ? "bg-[#8B0000] text-[#F0F0F0] border-[#F0F0F0]" : ""}`}
               whileTap={{ scale: 0.95 }}
               onClick={togglePlay}
             >
@@ -390,9 +379,8 @@ const DatabaseMetadataAudioPlayer: React.FC<
             {/* Next Button */}
             <motion.button
               aria-label="Next Track"
-              className={`bg-[#1A1A1A] hover:bg-[#2A2A2A] border border-[#333333] text-[#CCCCCC] hover:text-[#F0F0F0] font-mono text-xs px-2 py-1.5 md:px-3 md:py-2 focus:outline-none transition-none uppercase tracking-wider ${
-                buttonGlitch === "next" ? "glitch-button" : ""
-              }`}
+              className={`bg-[#1A1A1A] hover:bg-[#2A2A2A] border border-[#333333] text-[#CCCCCC] hover:text-[#F0F0F0] font-mono text-xs px-2 py-1.5 md:px-3 md:py-2 focus:outline-none transition-none uppercase tracking-wider ${buttonGlitch === "next" ? "glitch-button" : ""
+                }`}
               whileTap={{ scale: 0.95 }}
               onClick={skipToNextTrack}
             >
@@ -402,9 +390,8 @@ const DatabaseMetadataAudioPlayer: React.FC<
             {/* Forward Button */}
             <motion.button
               aria-label="Forward 10 seconds"
-              className={`bg-[#1A1A1A] hover:bg-[#2A2A2A] border border-[#333333] text-[#CCCCCC] hover:text-[#F0F0F0] font-mono text-xs px-2 py-1.5 md:px-3 md:py-2 focus:outline-none transition-none uppercase tracking-wider ${
-                buttonGlitch === "forward" ? "glitch-button" : ""
-              }`}
+              className={`bg-[#1A1A1A] hover:bg-[#2A2A2A] border border-[#333333] text-[#CCCCCC] hover:text-[#F0F0F0] font-mono text-xs px-2 py-1.5 md:px-3 md:py-2 focus:outline-none transition-none uppercase tracking-wider ${buttonGlitch === "forward" ? "glitch-button" : ""
+                }`}
               whileTap={{ scale: 0.95 }}
               onClick={() => seek(10)}
             >

@@ -56,7 +56,7 @@ export default function AudioPlayerSection() {
         setGlitchActive(true);
         setTimeout(() => setGlitchActive(false), 150);
       },
-      8000 + Math.random() * 12000
+      8000 + Math.random() * 12000,
     ); // Random interval 8-20 seconds
 
     return () => clearInterval(glitchInterval);
@@ -82,7 +82,7 @@ export default function AudioPlayerSection() {
           }, 100);
         }
       },
-      3000 + Math.random() * 5000
+      3000 + Math.random() * 5000,
     ); // Every 3-8 seconds
 
     return () => clearInterval(distortInterval);
@@ -152,9 +152,8 @@ export default function AudioPlayerSection() {
 
               <CardBody className="flex justify-center py-2 md:py-3 relative z-10">
                 <h1
-                  className={`text-lg md:text-xl font-mono font-bold text-center tracking-wider uppercase ${
-                    glitchActive ? "text-shadow-glitch" : ""
-                  }`}
+                  className={`text-lg md:text-xl font-mono font-bold text-center tracking-wider uppercase ${glitchActive ? "text-shadow-glitch" : ""
+                    }`}
                 >
                   KijayKolder
                 </h1>

@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import "../styles/entrance-animations.css";
 
 interface EntranceAnimationProps {
@@ -122,7 +122,7 @@ export default function EntranceAnimation({
     ];
 
     const timers = timeline.map(({ delay, action }) =>
-      setTimeout(action, delay)
+      setTimeout(action, delay),
     );
 
     return () => timers.forEach(clearTimeout);
@@ -276,7 +276,6 @@ function CorruptedStatic({ intensity = 0.5 }: { intensity: number }) {
 function DistortedLogo({
   displacement = 0,
   phase,
-  staticIntensity,
 }: {
   displacement: number;
   phase: number;
@@ -307,11 +306,11 @@ function DistortedLogo({
             () => {
               element.style.transform = "translateX(0) skewX(0)";
             },
-            Math.random() * 100 + 50
+            Math.random() * 100 + 50,
           );
         }
       },
-      200 + Math.random() * 400
+      200 + Math.random() * 400,
     );
 
     return () => clearInterval(glitchInterval);

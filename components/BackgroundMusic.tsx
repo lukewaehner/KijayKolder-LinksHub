@@ -58,7 +58,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
           audioRef.current.removeEventListener("timeupdate", handleTimeUpdate);
           audioRef.current.removeEventListener(
             "loadedmetadata",
-            handleLoadedMetadata
+            handleLoadedMetadata,
           );
         }
       };
@@ -98,7 +98,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
   /** Returns playback to the previous track in the queue. */
   const skipToPreviousTrack = () => {
     setCurrentTrackIndex((prevIndex) =>
-      prevIndex === 0 ? tracks.length - 1 : prevIndex - 1
+      prevIndex === 0 ? tracks.length - 1 : prevIndex - 1,
     );
   };
 
@@ -107,7 +107,7 @@ const BackgroundMusic: React.FC<BackgroundMusicProps> = ({
     if (audioRef.current) {
       audioRef.current.currentTime = Math.max(
         0,
-        audioRef.current.currentTime + seconds
+        audioRef.current.currentTime + seconds,
       );
     }
   };

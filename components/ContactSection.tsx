@@ -21,7 +21,7 @@ export default function ContactSection() {
         setSectionGlitch(true);
         setTimeout(() => setSectionGlitch(false), 200);
       },
-      15000 + Math.random() * 20000
+      15000 + Math.random() * 20000,
     ); // Random interval 15-35 seconds
 
     return () => clearInterval(glitchInterval);
@@ -97,9 +97,8 @@ export default function ContactSection() {
               <span className="text-xs font-mono text-[#555555]">v1.8</span>
             </div>
             <h2
-              className={`text-lg md:text-xl font-mono font-bold uppercase tracking-wider text-center text-[#F0F0F0] ${
-                sectionGlitch ? "glitch-text" : ""
-              }`}
+              className={`text-lg md:text-xl font-mono font-bold uppercase tracking-wider text-center text-[#F0F0F0] ${sectionGlitch ? "glitch-text" : ""
+                }`}
             >
               GET_IN_TOUCH
             </h2>

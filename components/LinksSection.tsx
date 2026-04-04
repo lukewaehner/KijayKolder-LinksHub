@@ -1,13 +1,13 @@
 "use client";
 
-import type { IconType, IconBaseProps } from "react-icons";
 import type { CSSProperties } from "react";
+import type { IconBaseProps, IconType } from "react-icons";
 
-import { FaSoundcloud, FaApple, FaSpotify, FaInstagram } from "react-icons/fa";
-import { motion } from "framer-motion";
 import { Card, CardBody } from "@nextui-org/card";
 import { Link } from "@nextui-org/link";
-import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { FaApple, FaInstagram, FaSoundcloud, FaSpotify } from "react-icons/fa";
 
 // Include any existing links and add more
 const links = [
@@ -40,7 +40,7 @@ const links = [
 // Helper to map platform string to proper icons with dark styling
 const getPlatformIcon = (
   platform: string,
-  isGlitching: boolean
+  isGlitching: boolean,
 ): JSX.Element => {
   const glitchStyle: CSSProperties = isGlitching
     ? { filter: "hue-rotate(180deg) contrast(2)" }
@@ -85,7 +85,7 @@ export default function LinksSection() {
         setSectionGlitch(true);
         setTimeout(() => setSectionGlitch(false), 200);
       },
-      12000 + Math.random() * 18000
+      12000 + Math.random() * 18000,
     ); // Random interval 12-30 seconds
 
     return () => clearInterval(glitchInterval);
@@ -137,9 +137,8 @@ export default function LinksSection() {
               <span className="text-xs font-mono text-[#555555]">v2.1</span>
             </div>
             <h2
-              className={`text-lg md:text-xl font-mono font-bold uppercase tracking-wider text-center text-[#F0F0F0] ${
-                sectionGlitch ? "glitch-text" : ""
-              }`}
+              className={`text-lg md:text-xl font-mono font-bold uppercase tracking-wider text-center text-[#F0F0F0] ${sectionGlitch ? "glitch-text" : ""
+                }`}
             >
               CONNECT_WITH_ME
             </h2>
@@ -163,9 +162,8 @@ export default function LinksSection() {
             >
               <Link className="w-full" href={link.href}>
                 <Card
-                  className={`w-full bg-[#1A1A1A]/95 border border-[#2A2A2A] hover:border-[#8B0000] transition-none backdrop-blur-sm relative overflow-hidden ${
-                    hoveredLink === link.id ? "link-hover" : ""
-                  }`}
+                  className={`w-full bg-[#1A1A1A]/95 border border-[#2A2A2A] hover:border-[#8B0000] transition-none backdrop-blur-sm relative overflow-hidden ${hoveredLink === link.id ? "link-hover" : ""
+                    }`}
                 >
                   {/* Hover glitch effect */}
                   {hoveredLink === link.id && (
@@ -196,9 +194,8 @@ export default function LinksSection() {
                       {getPlatformIcon(link.platform, hoveredLink === link.id)}
                       <div className="flex-1">
                         <h2
-                          className={`text-sm md:text-base font-mono font-bold uppercase tracking-wider text-[#F0F0F0] ${
-                            hoveredLink === link.id ? "glitch-text" : ""
-                          }`}
+                          className={`text-sm md:text-base font-mono font-bold uppercase tracking-wider text-[#F0F0F0] ${hoveredLink === link.id ? "glitch-text" : ""
+                            }`}
                         >
                           {link.text.toUpperCase()}
                         </h2>
