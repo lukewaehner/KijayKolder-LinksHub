@@ -34,8 +34,8 @@ export default function Home() {
       {!showEntrance && (
         <SwipeableLayout
           sections={[
-            <AudioPlayerSection key="audio" />,
             <LinksSection key="links" />,
+            <AudioPlayerSection key="audio" />,
           ]}
         />
       )}
